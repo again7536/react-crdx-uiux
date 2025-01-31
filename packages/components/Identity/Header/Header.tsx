@@ -1,10 +1,10 @@
-import { HeaderActionProps } from "./HeaderAction/HeaderAction";
 import { HeaderUtilityDropdownProps } from "./HeaderUtility/HeaderUtilityDropdown";
-import { HeaderUtilityLinkProps } from "./HeaderUtility/HeaderUtilityLink";
+import { HeaderUtilityProps } from "./HeaderUtility/HeaderUtility";
+import { HeaderActionProps } from "./HeaderAction/HeaderAction";
 
 interface HeaderProps {
   utilities?: React.ReactElement<
-    HeaderUtilityLinkProps | HeaderUtilityDropdownProps
+    HeaderUtilityProps | HeaderUtilityDropdownProps
   >[];
   logoUrl?: string;
   logoScreenReaderText?: string;

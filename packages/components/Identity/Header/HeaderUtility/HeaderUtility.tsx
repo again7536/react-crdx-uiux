@@ -1,8 +1,8 @@
-interface HeaderUtilityLinkProps {
+interface HeaderUtilityProps {
   children: React.ReactNode;
 }
 
-const HeaderUtilityLink = ({ children }: HeaderUtilityLinkProps) => {
+const HeaderUtility = ({ children }: HeaderUtilityProps) => {
   return (
     <li>
       <a
@@ -17,5 +17,5 @@ const HeaderUtilityLink = ({ children }: HeaderUtilityLinkProps) => {
   );
 };
 
-export default HeaderUtilityLink;
-export type { HeaderUtilityLinkProps };
+export default HeaderUtility;
+export type { HeaderUtilityProps };

@@ -1,9 +1,21 @@
-import Dropdown, { DropdownProps } from "@/Dropdown/Dropdown";
+import { useCallback, useMemo } from "react";
+import useKeyEvent from "@/hooks/useKeyEvent";
+import useClickOutside from "@/hooks/useClickOutside";
+import { useDropdownStore } from "./useDropdownStore";
 
-interface HeaderUtilityDropdownProps extends DropdownProps {
-  children: React.ReactNode;
+interface DropdownProps {
+  id?: string;
+  children?: React.ReactNode;
+  title?: string;
   dropItems?: React.ReactNode;
+  dropBottom?: React.ReactNode;
+  dropTop?: React.ReactNode;
+  classNames?: {
+    button?: string;
+    menu?: string;
+  };
 }
+
 /*
 const krds_dropEvent = {
   dropButtons: null,
@@ -136,27 +148,80 @@ const krds_dropEvent = {
 };
  */
 
-const HeaderUtilityDropdown = ({
+const Dropdown = ({
+  id = crypto.randomUUID(),
   children,
-  dropItems,
   title,
+  dropItems,
   dropBottom,
   dropTop,
-}: HeaderUtilityDropdownProps) => {
+  classNames,
+}: DropdownProps) => {
+  const { openId, toggleDropdown } = useDropdownStore();
+  const isOpen = openId === id;
+
+  const handleEscape = useCallback(() => {
+    if (isOpen) {
+      toggleDropdown(null);
+    }
+  }, [isOpen, toggleDropdown]);
+
+  const handleClickOutside = useCallback(() => {
+    if (isOpen) {
+      toggleDropdown(null);
+      document.querySelector<HTMLButtonElement>(`#${id} .drop-btn`)?.focus();
+    }
+  }, [isOpen, toggleDropdown]);
+
+  useKeyEvent("Escape", handleEscape);
+  useClickOutside(`#${id}`, handleClickOutside);
+
+  const menuPosition = useMemo(() => {
+    const menu = document.querySelector(`#${id} .drop-menu`);
+    const menuRect = menu?.getBoundingClientRect() ?? { left: 0, width: 0 };
+    const windowWidth = window.innerWidth;
+
+    if (menuRect?.left < 0) {
+      return "drop-left";
+    }
+    if (windowWidth < menuRect?.left + menuRect?.width) {
+      return "drop-right";
+    }
+    return "";
+  }, [isOpen]);
+
   return (
-    <li>
-      <Dropdown
-        buttonClassName='krds-btn small text drop-btn'
+    <div id={id} className='krds-drop-wrap'>
+      <button
+        type='button'
+        className={`drop-btn ${isOpen ? "active" : ""} ${classNames?.button}`}
         title={title}
-        dropItems={dropItems}
-        dropBottom={dropBottom}
-        dropTop={dropTop}
+        onClick={() => toggleDropdown(id)}
+        onBlur={() => toggleDropdown(null)}
       >
         {children}
-      </Dropdown>
-    </li>
+      </button>
+      <div
+        className={`drop-menu ${menuPosition} ${classNames?.menu}`}
+        aria-expanded={isOpen}
+        onBlur={() => toggleDropdown(null)}
+        style={
+          isOpen
+            ? {
+                display: "block",
+              }
+            : undefined
+        }
+      >
+        <div className='drop-in'>
+          {dropTop && <div className='drop-top'>{dropTop}</div>}
+          <ul className='drop-list'>{dropItems}</ul>
+          {dropBottom && <div className='drop-bottom'>{dropBottom}</div>}
+        </div>
+      </div>
+    </div>
   );
 };
 
-export default HeaderUtilityDropdown;
-export type { HeaderUtilityDropdownProps };
+export default Dropdown;
+export type { DropdownProps };

@@ -1,8 +1,9 @@
-import Dropdown from "@/Dropdown/Dropdown";
+import Dropdown from "@/components/Dropdown/Dropdown";
 
 type HeaderButtonVariant = "login" | "join" | "myGov" | "search";
 
 interface HeaderActionDropdownProps {
+  id: string;
   children: React.ReactNode;
   variant?: HeaderButtonVariant;
   title?: string;
@@ -19,6 +20,7 @@ const HEADER_BUTTON_VARIANT_CLASS: Record<HeaderButtonVariant, string> = {
 };
 
 const HeaderActionDropdown = ({
+  id,
   children,
   variant = "login",
   title,
@@ -28,7 +30,10 @@ const HeaderActionDropdown = ({
 }: HeaderActionDropdownProps) => {
   return (
     <Dropdown
-      buttonClassName={`btn-navi ${HEADER_BUTTON_VARIANT_CLASS[variant]} drop-btn`}
+      id={id}
+      classNames={{
+        button: `btn-navi ${HEADER_BUTTON_VARIANT_CLASS[variant]}`,
+      }}
       title={title}
       dropItems={dropItems}
       dropBottom={dropBottom}

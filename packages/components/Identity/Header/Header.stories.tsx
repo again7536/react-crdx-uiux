@@ -1,9 +1,9 @@
 import Header from "./Header";
-import HeaderUtilityLink from "./HeaderUtility/HeaderUtilityLink";
+import HeaderUtilityLink from "./HeaderUtility/HeaderUtility";
 import HeaderUtilityDropdown from "./HeaderUtility/HeaderUtilityDropdown";
 import HeaderAction from "./HeaderAction/HeaderAction";
 import HeaderActionDropdown from "./HeaderAction/HeaderActionDropdown";
-import DropItem from "@/Dropdown/DropItem";
+import DropItem from "@/components/Dropdown/DropItem";
 
 export default {
   title: "Identity/Header",
@@ -14,7 +14,10 @@ export const Default = () => (
   <Header
     utilities={[
       <HeaderUtilityLink>메뉴명</HeaderUtilityLink>,
-      <HeaderUtilityDropdown dropItems={[<DropItem>메뉴명</DropItem>]}>
+      <HeaderUtilityDropdown
+        id='utility-dropdown'
+        dropItems={[<DropItem>메뉴명</DropItem>]}
+      >
         메뉴명
       </HeaderUtilityDropdown>,
     ]}
@@ -22,6 +25,7 @@ export const Default = () => (
       <HeaderAction variant='login'>로그인</HeaderAction>,
       <HeaderAction variant='join'>회원가입</HeaderAction>,
       <HeaderActionDropdown
+        id='myGov-dropdown'
         variant='myGov'
         dropItems={[
           <DropItem key={1}>나의 GOV</DropItem>,
