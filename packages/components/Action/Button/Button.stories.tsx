@@ -1,39 +1,94 @@
+import type { Meta, StoryObj } from "@storybook/react";
+
 import Button from "./Button";
 import Icon from "../../Icon/Icon";
 
 export default {
   title: "Action/Button",
   component: Button,
+} as Meta;
+
+type Story = StoryObj<typeof Button>;
+export const Primary: Story = {
+  args: {
+    color: "primary",
+    children: "버튼",
+  },
 };
 
-export const Primary = () => <Button color='primary'>버튼</Button>;
+export const Secondary: Story = {
+  args: {
+    color: "secondary",
+    children: "버튼",
+  },
+};
 
-export const Secondary = () => <Button color='secondary'>버튼</Button>;
+export const Tertiary: Story = {
+  args: {
+    color: "tertiary",
+    children: "버튼",
+  },
+};
 
-export const Tertiary = () => <Button color='tertiary'>버튼</Button>;
+export const Text: Story = {
+  args: {
+    variant: "text",
+    children: "버튼",
+  },
+};
 
-export const Text = () => <Button variant='text'>버튼</Button>;
+export const IconButton: Story = {
+  args: {
+    variant: "icon",
+    children: <Icon name='login-go' />,
+  },
+};
 
-export const IconButton = () => (
-  <Button variant='icon'>
-    <Icon name='login-go' />
-  </Button>
-);
+export const IconButtonBorder: Story = {
+  args: {
+    variant: "icon-border",
+    children: <Icon name='login-go' />,
+  },
+};
 
-export const IconButtonBorder = () => (
-  <Button variant='icon-border'>
-    <Icon name='login-go' />
-  </Button>
-);
+export const Xsmall: Story = {
+  args: {
+    size: "xsmall",
+    children: "버튼",
+  },
+};
 
-export const Xsmall = () => <Button size='xsmall'>버튼</Button>;
+export const Small: Story = {
+  args: {
+    size: "small",
+    children: "버튼",
+  },
+};
 
-export const Small = () => <Button size='small'>버튼</Button>;
+export const Medium: Story = {
+  args: {
+    size: "medium",
+    children: "버튼",
+  },
+};
 
-export const Medium = () => <Button size='medium'>버튼</Button>;
+export const Large: Story = {
+  args: {
+    size: "large",
+    children: "버튼",
+  },
+};
 
-export const Large = () => <Button size='large'>버튼</Button>;
+export const Xlarge: Story = {
+  args: {
+    size: "xlarge",
+    children: "버튼",
+  },
+};
 
-export const Xlarge = () => <Button size='xlarge'>버튼</Button>;
-
-export const Disabled = () => <Button disabled>버튼</Button>;
+export const Disabled: Story = {
+  args: {
+    disabled: true,
+    children: "버튼",
+  },
+};

@@ -1,3 +1,5 @@
+import "./Icon.scss";
+
 type IconTypes =
   | "angle up"
   | "angle down"
@@ -74,11 +76,14 @@ type IconTypes =
 
 interface IconProps {
   name: IconTypes;
+  size?: "xsmall" | "small" | "medium" | "large" | "xlarge";
   pure?: boolean;
 }
 
-const Icon = ({ name, pure = false }: IconProps) => {
-  return <i className={`svg-icon ico-${name} ${pure ? "pure" : ""}`}></i>;
+const Icon = ({ name, size = "medium", pure = false }: IconProps) => {
+  return (
+    <i className={`svg-icon ico-${name} ${size} ${pure ? "pure" : ""}`}></i>
+  );
 };
 
 export default Icon;
