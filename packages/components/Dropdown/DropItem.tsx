@@ -26,6 +26,7 @@ const DropItem = ({
         className={`item-link ${isSelected ? "active" : ""}`}
         aria-selected={isSelected}
         onClick={handleClick}
+        style={{}}
       >
         <span className='sr-only'>{isSelected ? "선택됨" : ""}</span>
         {children}
