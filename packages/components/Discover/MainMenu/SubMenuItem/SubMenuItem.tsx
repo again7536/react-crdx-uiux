@@ -4,7 +4,7 @@ import Icon from '@/components/Others/Icon/Icon';
 import { useCallback, useMemo } from 'react';
 import { getSubMenuUniqueId } from '@/utils/MainMenuUtil';
 import { useMenuStore } from '../useMenuStore';
-
+import { SubMenuContentsProps } from '../SubMenuContents/SubMenuContents';
 interface SubMenuItemProps {
   id?: string;
   title: string;
@@ -14,7 +14,7 @@ interface SubMenuItemProps {
   titleLinkText?: string;
   bannerTitle?: string;
   bannerButton?: string;
-  children?: React.ReactNode;
+  children?: React.ReactElement<SubMenuContentsProps>[] | React.ReactElement<SubMenuContentsProps>;
 }
 
 const SubMenuItem = ({
@@ -86,7 +86,9 @@ const SubMenuItem = ({
               </Link>
             )}
           </h2>
-          <ul className={`${variant === 'menu-description' ? 'type-description' : ''}`}>{children}</ul>
+          <ul className={`${variant === 'menu-description' ? 'type-description' : ''}`} data-variant={variant}>
+            {children}
+          </ul>
         </div>
         {bannerTitle && bannerButton && (
           <div className="gnb-sub-banner">

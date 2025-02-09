@@ -9,7 +9,7 @@ import DropItem from '@/components/Others/Dropdown/DropItem';
 import MainMenu from '@/components/Discover/MainMenu/MainMenu';
 import MainMenuItem from '@/components/Discover/MainMenu/MainMenuItem/MainMenuItem';
 import SubMenuItem from '@/components/Discover/MainMenu/SubMenuItem/SubMenuItem';
-
+import SubMenuContents from '@/components/Discover/MainMenu/SubMenuContents/SubMenuContents';
 export default {
   title: 'Identity/Header',
   component: Header,
@@ -19,7 +19,7 @@ type Story = StoryObj<typeof Header>;
 export const Default: Story = {
   args: {
     utilities: [
-      <HeaderUtilityLink>메뉴명</HeaderUtilityLink>,
+      <HeaderUtilityLink key="1">메뉴명</HeaderUtilityLink>,
       <HeaderUtilityDropdown id="utility-dropdown" dropItems={[<DropItem>메뉴명</DropItem>]}>
         메뉴명
       </HeaderUtilityDropdown>,
@@ -52,7 +52,9 @@ export const Default: Story = {
             link="#"
             bannerTitle="배너 타이틀 #1"
             bannerButton="배너 버튼 #1"
-          />
+          >
+            <SubMenuContents title="3Depth-title" />
+          </SubMenuItem>
           <SubMenuItem
             variant="menu-description"
             title="2Depth-bar"
@@ -60,7 +62,13 @@ export const Default: Story = {
             link="#"
             bannerTitle="배너 타이틀 #2"
             bannerButton="배너 버튼 #2"
-          />
+          >
+            <SubMenuContents title="3Depth-title #1" description="3Depth subtitle #1" />
+            <SubMenuContents title="3Depth-title #2" description="3Depth subtitle #2" />
+            <SubMenuContents title="3Depth-title #3" description="3Depth subtitle #3" />
+            <SubMenuContents title="3Depth-title #4" description="3Depth subtitle #4" />
+            <SubMenuContents title="3Depth-title #5" description="3Depth subtitle #5" />
+          </SubMenuItem>
           <SubMenuItem
             title="2Depth-bar"
             subtitle="2Depth subtitle #3"
