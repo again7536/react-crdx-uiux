@@ -1,24 +1,17 @@
-import Dropdown, { DropdownProps } from "@/components/Dropdown/Dropdown";
+import Dropdown, { DropdownProps } from '@/components/Dropdown/Dropdown';
 
 interface HeaderUtilityDropdownProps extends DropdownProps {
   children: React.ReactNode;
   dropItems?: React.ReactNode;
 }
 
-const HeaderUtilityDropdown = ({
-  children,
-  id,
-  dropItems,
-  title,
-  dropBottom,
-  dropTop,
-}: HeaderUtilityDropdownProps) => {
+const HeaderUtilityDropdown = ({ children, id, dropItems, title, dropBottom, dropTop }: HeaderUtilityDropdownProps) => {
   return (
     <li>
       <Dropdown
         id={id}
         classNames={{
-          button: "krds-btn small text",
+          button: 'krds-btn small text',
         }}
         title={title}
         dropItems={dropItems}

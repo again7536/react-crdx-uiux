@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
 interface DropItemStore {
   selectedId: string | null;
@@ -7,6 +7,5 @@ interface DropItemStore {
 
 export const useDropItemStore = create<DropItemStore>((set) => ({
   selectedId: null,
-  toggleSelectedId: (id) =>
-    set((state) => ({ selectedId: state.selectedId === id ? null : id })),
+  toggleSelectedId: (id) => set((state) => ({ selectedId: state.selectedId === id ? null : id })),
 }));

@@ -1,6 +1,6 @@
-import Dropdown from "@/components/Dropdown/Dropdown";
+import Dropdown from '@/components/Dropdown/Dropdown';
 
-type HeaderButtonVariant = "login" | "join" | "myGov" | "search";
+type HeaderButtonVariant = 'login' | 'join' | 'myGov' | 'search';
 
 interface HeaderActionDropdownProps {
   id: string;
@@ -13,16 +13,16 @@ interface HeaderActionDropdownProps {
 }
 
 const HEADER_BUTTON_VARIANT_CLASS: Record<HeaderButtonVariant, string> = {
-  login: "login",
-  join: "join",
-  myGov: "my",
-  search: "sch",
+  login: 'login',
+  join: 'join',
+  myGov: 'my',
+  search: 'sch',
 };
 
 const HeaderActionDropdown = ({
   id,
   children,
-  variant = "login",
+  variant = 'login',
   title,
   dropTop,
   dropItems,

@@ -25,6 +25,7 @@
     "eslint": "^9.19.0",
     "eslint-plugin-storybook": "^0.11.2",
     "jiti": "^2.4.2",
+    "prettier": "^3.4.2",
     "sass-embedded": "^1.83.4",
     "scss": "^0.2.4",
     "storybook": "^8.5.1",
@@ -33,7 +34,7 @@
     "typescript-eslint": "^8.21.0"
   },
   "dependencies": {
-    "krds-uiux": "^1.0.2",
+    "krds-uiux": "^1.0.3",
     "react": "^19.0.0",
     "zustand": "^5.0.3"
   },

@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
 interface DropdownContextType {
   openId: string | null;
@@ -7,8 +7,7 @@ interface DropdownContextType {
 
 const useDropdownStore = create<DropdownContextType>((set) => ({
   openId: null,
-  toggleDropdown: (id) =>
-    set((state) => ({ openId: state.openId === id ? null : id })),
+  toggleDropdown: (id) => set((state) => ({ openId: state.openId === id ? null : id })),
 }));
 
 export { useDropdownStore };

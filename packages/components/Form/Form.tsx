@@ -9,7 +9,7 @@ interface FormProps {
 const Form = ({ children }: FormProps) => {
   return (
     <form>
-      <div className='fieldset'>{children}</div>
+      <div className="fieldset">{children}</div>
     </form>
   );
 };

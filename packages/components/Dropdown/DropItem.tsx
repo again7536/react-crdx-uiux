@@ -1,4 +1,4 @@
-import { useDropItemStore } from "./useDropItemStore";
+import { useDropItemStore } from './useDropItemStore';
 
 interface DropItemProps {
   id?: string;
@@ -6,11 +6,7 @@ interface DropItemProps {
   link?: string;
 }
 
-const DropItem = ({
-  id = crypto.randomUUID(),
-  children,
-  link,
-}: DropItemProps) => {
+const DropItem = ({ id = crypto.randomUUID(), children, link }: DropItemProps) => {
   const { selectedId, toggleSelectedId } = useDropItemStore();
   const isSelected = selectedId === id;
 
@@ -22,13 +18,13 @@ const DropItem = ({
     <li>
       <a
         id={id}
-        href={link ?? "#"}
-        className={`item-link ${isSelected ? "active" : ""}`}
+        href={link ?? '#'}
+        className={`item-link ${isSelected ? 'active' : ''}`}
         aria-selected={isSelected}
         onClick={handleClick}
         style={{}}
       >
-        <span className='sr-only'>{isSelected ? "선택됨" : ""}</span>
+        <span className="sr-only">{isSelected ? '선택됨' : ''}</span>
         {children}
       </a>
     </li>

@@ -1,7 +1,7 @@
-import { useCallback, useMemo } from "react";
-import useKeyEvent from "@/hooks/useKeyEvent";
-import useClickOutside from "@/hooks/useClickOutside";
-import { useDropdownStore } from "./useDropdownStore";
+import { useCallback, useMemo } from 'react';
+import useKeyEvent from '@/hooks/useKeyEvent';
+import useClickOutside from '@/hooks/useClickOutside';
+import { useDropdownStore } from './useDropdownStore';
 
 interface DropdownProps {
   id?: string;
@@ -173,7 +173,7 @@ const Dropdown = ({
     }
   }, [isOpen, toggleDropdown]);
 
-  useKeyEvent("Escape", handleEscape);
+  useKeyEvent('Escape', handleEscape);
   useClickOutside(`#${id}`, handleClickOutside);
 
   const menuPosition = useMemo(() => {
@@ -182,19 +182,19 @@ const Dropdown = ({
     const windowWidth = window.innerWidth;
 
     if (menuRect?.left < 0) {
-      return "drop-left";
+      return 'drop-left';
     }
     if (windowWidth < menuRect?.left + menuRect?.width) {
-      return "drop-right";
+      return 'drop-right';
     }
-    return "";
+    return '';
   }, [isOpen]);
 
   return (
-    <div id={id} className='krds-drop-wrap'>
+    <div id={id} className="krds-drop-wrap">
       <button
-        type='button'
-        className={`drop-btn ${isOpen ? "active" : ""} ${classNames?.button}`}
+        type="button"
+        className={`drop-btn ${isOpen ? 'active' : ''} ${classNames?.button}`}
         title={title}
         onClick={() => toggleDropdown(id)}
         onBlur={() => toggleDropdown(null)}
@@ -208,15 +208,15 @@ const Dropdown = ({
         style={
           isOpen
             ? {
-                display: "block",
+                display: 'block',
               }
             : undefined
         }
       >
-        <div className='drop-in'>
-          {dropTop && <div className='drop-top'>{dropTop}</div>}
-          <ul className='drop-list'>{dropItems}</ul>
-          {dropBottom && <div className='drop-bottom'>{dropBottom}</div>}
+        <div className="drop-in">
+          {dropTop && <div className="drop-top">{dropTop}</div>}
+          <ul className="drop-list">{dropItems}</ul>
+          {dropBottom && <div className="drop-bottom">{dropBottom}</div>}
         </div>
       </div>
     </div>

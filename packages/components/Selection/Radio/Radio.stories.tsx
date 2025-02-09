@@ -1,24 +1,24 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Checkbox from './Checkbox';
+import Radio from './Radio';
 
 export default {
-  title: 'Selection/Checkbox',
-  component: Checkbox,
+  title: 'Selection/Radio',
+  component: Radio,
 } as Meta;
 
-type Story = StoryObj<typeof Checkbox>;
+type Story = StoryObj<typeof Radio>;
 export const Primary: Story = {
   args: {
     label: '기본',
-    id: 'checkbox-1',
+    id: 'radio-1',
   },
 };
 
 export const Large: Story = {
   args: {
     label: '기본',
-    id: 'checkbox-2',
+    id: 'radio-2',
     size: 'large',
   },
 };
@@ -26,7 +26,7 @@ export const Large: Story = {
 export const Description: Story = {
   args: {
     label: '기본',
-    id: 'checkbox-3',
+    id: 'radio-3',
     description: '부가적인 설명이 들어갑니다.',
   },
 };
@@ -34,7 +34,7 @@ export const Description: Story = {
 export const Disabled: Story = {
   args: {
     label: '비활성화',
-    id: 'checkbox-4',
+    id: 'radio-4',
     disabled: true,
   },
 };
@@ -42,7 +42,7 @@ export const Disabled: Story = {
 export const Chip: Story = {
   args: {
     label: '칩',
-    id: 'checkbox-5',
+    id: 'radio-5',
     type: 'chip',
   },
 };
@@ -50,7 +50,7 @@ export const Chip: Story = {
 export const ChipDisabled: Story = {
   args: {
     label: '칩',
-    id: 'checkbox-5',
+    id: 'radio-6',
     type: 'chip',
     disabled: true,
   },

@@ -1,6 +1,6 @@
-import { ButtonHTMLAttributes } from "react";
+import { ButtonHTMLAttributes } from 'react';
 
-type HeaderButtonVariant = "login" | "join" | "myGov" | "search" | "all";
+type HeaderButtonVariant = 'login' | 'join' | 'myGov' | 'search' | 'all';
 
 interface HeaderActionProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
@@ -10,24 +10,18 @@ interface HeaderActionProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const HEADER_BUTTON_VARIANT_CLASS: Record<HeaderButtonVariant, string> = {
-  login: "login",
-  join: "join",
-  myGov: "my",
-  search: "sch",
-  all: "all",
+  login: 'login',
+  join: 'join',
+  myGov: 'my',
+  search: 'sch',
+  all: 'all',
 };
 
-const HeaderActionButton = ({
-  children,
-  variant = "login",
-  title,
-  onClick,
-  ...props
-}: HeaderActionProps) => {
+const HeaderActionButton = ({ children, variant = 'login', title, onClick, ...props }: HeaderActionProps) => {
   return (
     <button
       {...props}
-      type='button'
+      type="button"
       className={`btn-navi ${HEADER_BUTTON_VARIANT_CLASS[variant]}`}
       title={title}
       onClick={onClick}

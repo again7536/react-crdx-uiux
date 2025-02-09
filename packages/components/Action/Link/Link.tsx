@@ -15,38 +15,36 @@
 // 	<i class="svg-icon ico-go"></i>
 // </a>
 
-import Icon from "@/components/Icon/Icon";
+import Icon from '@/components/Icon/Icon';
 
 interface LinkProps extends React.HTMLAttributes<HTMLAnchorElement> {
   children: React.ReactNode;
   href: string;
-  size?: "small" | "medium" | "large";
+  size?: 'small' | 'medium' | 'large';
   underline?: boolean;
   disabled?: boolean;
   basic?: boolean;
-  icon?: "go" | "angle right";
+  icon?: 'go' | 'angle right';
 }
 
 const Link = ({
   children,
   href,
   className,
-  size = "medium",
+  size = 'medium',
   underline = false,
   disabled = false,
   basic = false,
-  icon = "go",
+  icon = 'go',
   ...props
 }: LinkProps) => {
   return (
     <a
       {...props}
       href={href}
-      className={`krds-btn ${size} link ${basic ? "basic" : ""} ${
-        disabled ? "disabled" : ""
-      } ${className}`}
+      className={`krds-btn ${size} link ${basic ? 'basic' : ''} ${disabled ? 'disabled' : ''} ${className}`}
     >
-      <span className={underline ? "underline" : ""}>{children}</span>
+      <span className={underline ? 'underline' : ''}>{children}</span>
       {icon && <Icon name={icon} />}
     </a>
   );
