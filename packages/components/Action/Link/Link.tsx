@@ -15,7 +15,7 @@
 // 	<i class="svg-icon ico-go"></i>
 // </a>
 
-import Icon from '@/components/Icon/Icon';
+import Icon from '@/components/Others/Icon/Icon';
 
 interface LinkProps extends React.HTMLAttributes<HTMLAnchorElement> {
   children: React.ReactNode;

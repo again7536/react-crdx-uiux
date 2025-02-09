@@ -5,7 +5,7 @@ import HeaderUtilityLink from './HeaderUtility/HeaderUtility';
 import HeaderUtilityDropdown from './HeaderUtility/HeaderUtilityDropdown';
 import HeaderAction from './HeaderAction/HeaderAction';
 import HeaderActionDropdown from './HeaderAction/HeaderActionDropdown';
-import DropItem from '@/components/Dropdown/DropItem';
+import DropItem from '@/components/Others/Dropdown/DropItem';
 
 export default {
   title: 'Identity/Header',

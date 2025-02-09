@@ -1,4 +1,4 @@
-import Dropdown, { DropdownProps } from '@/components/Dropdown/Dropdown';
+import Dropdown, { DropdownProps } from '@/components/Others/Dropdown/Dropdown';
 
 interface HeaderUtilityDropdownProps extends DropdownProps {
   children: React.ReactNode;

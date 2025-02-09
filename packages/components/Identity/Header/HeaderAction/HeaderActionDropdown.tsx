@@ -1,4 +1,4 @@
-import Dropdown from '@/components/Dropdown/Dropdown';
+import Dropdown from '@/components/Others/Dropdown/Dropdown';
 
 type HeaderButtonVariant = 'login' | 'join' | 'myGov' | 'search';
 

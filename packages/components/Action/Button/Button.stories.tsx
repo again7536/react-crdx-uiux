@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import Button from './Button';
-import Icon from '../../Icon/Icon';
+import Icon from '../../Others/Icon/Icon';
 
 export default {
   title: 'Action/Button',
