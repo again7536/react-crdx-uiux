@@ -3,18 +3,18 @@ import Link from '@/components/Action/Link/Link';
 import Icon from '@/components/Others/Icon/Icon';
 import { useCallback, useMemo } from 'react';
 import { getSubMenuUniqueId } from '@/utils/MainMenuUtil';
+import { useMenuStore } from '../useMenuStore';
 
 interface SubMenuItemProps {
   id?: string;
   title: string;
-  variant?: 'menu' | 'link' | 'external-link';
+  variant?: 'menu' | 'link' | 'external-link' | 'menu-description';
   subtitle?: string;
   link?: string;
   titleLinkText?: string;
   bannerTitle?: string;
   bannerButton?: string;
-  openedSubMenuId?: string;
-  onClickSubMenu?: (id: string, event?: React.MouseEvent<HTMLButtonElement>) => void;
+  children?: React.ReactNode;
 }
 
 const SubMenuItem = ({
@@ -26,17 +26,14 @@ const SubMenuItem = ({
   titleLinkText = '바로가기',
   bannerTitle,
   bannerButton,
-  openedSubMenuId,
-  onClickSubMenu,
+  children,
 }: SubMenuItemProps) => {
+  const { openedSubMenuId, toggleSubMenu } = useMenuStore();
   const uniqueId = useMemo(() => id ?? getSubMenuUniqueId(), []);
 
-  const handleClickSubMenu = useCallback(
-    (event: React.MouseEvent<HTMLButtonElement>) => {
-      onClickSubMenu?.(uniqueId, event);
-    },
-    [onClickSubMenu, uniqueId],
-  );
+  const handleClickSubMenu = useCallback(() => {
+    toggleSubMenu?.(uniqueId);
+  }, [toggleSubMenu, uniqueId]);
 
   if (variant === 'link') {
     return (
@@ -89,14 +86,7 @@ const SubMenuItem = ({
               </Link>
             )}
           </h2>
-          <ul>
-            <li>
-              <a href="#">Last depth</a>
-            </li>
-            <li>
-              <button type="button">Last depth</button>
-            </li>
-          </ul>
+          <ul className={`${variant === 'menu-description' ? 'type-description' : ''}`}>{children}</ul>
         </div>
         {bannerTitle && bannerButton && (
           <div className="gnb-sub-banner">

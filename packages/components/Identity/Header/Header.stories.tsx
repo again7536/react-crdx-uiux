@@ -7,6 +7,8 @@ import HeaderAction from './HeaderAction/HeaderAction';
 import HeaderActionDropdown from './HeaderAction/HeaderActionDropdown';
 import DropItem from '@/components/Others/Dropdown/DropItem';
 import MainMenu from '@/components/Discover/MainMenu/MainMenu';
+import MainMenuItem from '@/components/Discover/MainMenu/MainMenuItem/MainMenuItem';
+import SubMenuItem from '@/components/Discover/MainMenu/SubMenuItem/SubMenuItem';
 
 export default {
   title: 'Identity/Header',
@@ -42,53 +44,34 @@ export const Default: Story = {
       </HeaderAction>,
     ],
     children: (
-      <MainMenu
-        mainMenus={[
-          {
-            title: '메뉴 1번',
-            subMenus: [
-              {
-                title: '2Depth-bar',
-                subtitle: '2Depth subtitle #1',
-                link: '#',
-                bannerTitle: '배너 타이틀 #1',
-                bannerButton: '배너 버튼 #1',
-              },
-              {
-                title: '2Depth-bar',
-                subtitle: '2Depth subtitle #2',
-                link: '#',
-                bannerTitle: '배너 타이틀 #2',
-                bannerButton: '배너 버튼 #2',
-              },
-              {
-                title: '2Depth-bar',
-                subtitle: '2Depth subtitle #3',
-                link: '#',
-                bannerTitle: '배너 타이틀 #3',
-                bannerButton: '배너 버튼 #3',
-              },
-              {
-                title: '2Depth-bar',
-                subtitle: '2Depth subtitle #4',
-                link: '#',
-                bannerTitle: '배너 타이틀 #4',
-                bannerButton: '배너 버튼 #4',
-              },
-              {
-                title: '2Depth-외부링크',
-                variant: 'external-link',
-                link: '#',
-              },
-              {
-                title: '2Depth-bar',
-                variant: 'link',
-                link: '#',
-              },
-            ],
-          },
-        ]}
-      />
+      <MainMenu>
+        <MainMenuItem title="메뉴 1번">
+          <SubMenuItem
+            title="2Depth-bar"
+            subtitle="2Depth subtitle #1"
+            link="#"
+            bannerTitle="배너 타이틀 #1"
+            bannerButton="배너 버튼 #1"
+          />
+          <SubMenuItem
+            variant="menu-description"
+            title="2Depth-bar"
+            subtitle="2Depth subtitle #2"
+            link="#"
+            bannerTitle="배너 타이틀 #2"
+            bannerButton="배너 버튼 #2"
+          />
+          <SubMenuItem
+            title="2Depth-bar"
+            subtitle="2Depth subtitle #3"
+            link="#"
+            bannerTitle="배너 타이틀 #3"
+            bannerButton="배너 버튼 #3"
+          />
+          <SubMenuItem variant="link" title="2Depth-bar" subtitle="2Depth subtitle #4" link="#" />
+          <SubMenuItem variant="external-link" title="2Depth-bar" subtitle="2Depth subtitle #5" link="#" />
+        </MainMenuItem>
+      </MainMenu>
     ),
   },
 };

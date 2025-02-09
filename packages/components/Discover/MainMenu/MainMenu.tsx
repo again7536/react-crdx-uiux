@@ -1,27 +1,15 @@
-import MainMenuItem, { MainMenuItemProps } from './MainMenuItem/MainMenuItem';
-import { useState } from 'react';
+import { MainMenuItemProps } from './MainMenuItem/MainMenuItem';
 
 interface MainMenuProps {
-  mainMenus: MainMenuItemProps[];
+  children: React.ReactElement<MainMenuItemProps>[] | React.ReactElement<MainMenuItemProps>;
 }
 
-const MainMenu = ({ mainMenus }: MainMenuProps) => {
-  const [openedMainMenu, setOpenedMainMenu] = useState<string>();
-
+const MainMenu = ({ children }: MainMenuProps) => {
   return (
     <nav className="krds-main-menu">
       <div className="inner">
         <ul className="gnb-menu" aria-label="메인 메뉴">
-          {mainMenus.map((mainMenu) => (
-            <MainMenuItem
-              key={mainMenu.title}
-              {...mainMenu}
-              openedMenuId={openedMainMenu}
-              onClickMainMenu={(mainMenuId) =>
-                setOpenedMainMenu(openedMainMenu === mainMenuId ? undefined : mainMenuId)
-              }
-            />
-          ))}
+          {children}
 
           {/* <li>
             <button type="button" className="gnb-main-trigger" data-trigger="gnb">
