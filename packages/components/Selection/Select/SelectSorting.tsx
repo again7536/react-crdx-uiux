@@ -4,7 +4,7 @@ interface SelectSortingProps extends Omit<React.SelectHTMLAttributes<HTMLSelectE
 
 const SelectSorting = ({ children, size = 'medium', ...props }: SelectSortingProps) => {
   return (
-    <select id="select_sorting" className={`krds-form-select-sort ${size}`} title="선택" {...props}>
+    <select className={`krds-form-select-sort ${size}`} title="선택" {...props}>
       {children}
     </select>
   );

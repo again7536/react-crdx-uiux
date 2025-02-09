@@ -10,6 +10,7 @@ const Select = ({
   children,
   label,
   hint,
+  id,
   className,
   size = 'medium',
   isError = false,
@@ -20,12 +21,12 @@ const Select = ({
     <div className="form-group">
       {label && (
         <div className="form-tit">
-          <label htmlFor="select_name">{label}</label>
+          <label htmlFor={id}>{label}</label>
         </div>
       )}
       <div className="form-conts">
         <select
-          id="select_name"
+          id={id}
           className={`krds-form-select ${className} ${size} ${
             isError ? 'is-error' : ''
           } ${isComplete ? 'completed' : ''}`}
