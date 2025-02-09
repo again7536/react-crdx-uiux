@@ -5,12 +5,12 @@
 import React from 'react';
 import { CheckboxProps } from './Checkbox';
 
-interface CheckboxListProps {
+interface CheckboxGroupProps {
   children: React.ReactElement<CheckboxProps>[];
   isColumnal?: boolean;
 }
 
-const CheckboxList = ({ children, isColumnal = false }: CheckboxListProps) => {
+const CheckboxGroup = ({ children, isColumnal = false }: CheckboxGroupProps) => {
   return (
     <div className="form-group">
       <div className="form-conts">
@@ -20,4 +20,4 @@ const CheckboxList = ({ children, isColumnal = false }: CheckboxListProps) => {
   );
 };
 
-export default CheckboxList;
+export default CheckboxGroup;
