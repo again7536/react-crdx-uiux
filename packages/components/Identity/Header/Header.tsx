@@ -1,15 +1,22 @@
 import { HeaderUtilityDropdownProps } from './HeaderUtility/HeaderUtilityDropdown';
 import { HeaderUtilityProps } from './HeaderUtility/HeaderUtility';
 import { HeaderActionProps } from './HeaderAction/HeaderAction';
-
+import { MainMenuProps } from '@/components/Discover/MainMenu/MainMenu';
 interface HeaderProps {
   utilities?: React.ReactElement<HeaderUtilityProps | HeaderUtilityDropdownProps>[];
   logoUrl?: string;
   logoScreenReaderText?: string;
   actions?: React.ReactElement<HeaderActionProps>[];
+  children?: React.ReactElement<MainMenuProps>;
 }
 
-const Header = ({ utilities, logoUrl, logoScreenReaderText = 'KRDS - Korea Design System', actions }: HeaderProps) => {
+const Header = ({
+  utilities,
+  logoUrl,
+  logoScreenReaderText = 'KRDS - Korea Design System',
+  actions,
+  children,
+}: HeaderProps) => {
   return (
     <header id="krds-header">
       <div className="header-in">
@@ -30,256 +37,7 @@ const Header = ({ utilities, logoUrl, logoScreenReaderText = 'KRDS - Korea Desig
           </div>
         </div>
 
-        <nav className="krds-main-menu">
-          <div className="inner">
-            <ul className="gnb-menu">
-              <li>
-                <button type="button" className="gnb-main-trigger" data-trigger="gnb">
-                  1Depth
-                </button>
-
-                <div className="gnb-toggle-wrap">
-                  <div className="gnb-main-list" data-has-submenu="true">
-                    <ul>
-                      <li>
-                        <button type="button" className="gnb-sub-trigger" data-trigger="gnb">
-                          2Depth
-                        </button>
-
-                        <div className="gnb-sub-list">
-                          <div className="gnb-sub-content">
-                            <h2 className="sub-title">
-                              2Depth title
-                              <a href="#" className="krds-btn link basic small">
-                                <span className="underline">바로가기</span>
-                                <i className="svg-icon ico-angle right"></i>
-                              </a>
-                            </h2>
-                            <ul>
-                              <li>
-                                <a href="#">Last depth</a>
-                              </li>
-                              <li>
-                                <button type="button">Last depth</button>
-                              </li>
-                            </ul>
-                          </div>
-                          <div className="gnb-sub-banner">
-                            <span className="krds-badge bg-primary">신규 서비스</span>
-                            <button type="button" className="krds-btn medium text">
-                              메뉴명 <i className="svg-icon ico-angle right"></i>
-                            </button>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <button type="button" className="gnb-sub-trigger" data-trigger="gnb">
-                          2Depth
-                        </button>
-
-                        <div className="gnb-sub-list between">
-                          <div className="gnb-sub-content">
-                            <h2 className="sub-title">
-                              2Depth title
-                              <a href="#" className="krds-btn link basic small">
-                                <span className="underline">바로가기</span>
-                                <i className="svg-icon ico-angle right"></i>
-                              </a>
-                            </h2>
-                            <ul>
-                              <li>
-                                <a href="#">Last depth</a>
-                              </li>
-                              <li>
-                                <button type="button">Last depth</button>
-                              </li>
-                              <li>
-                                <button type="button">Last depth</button>
-                              </li>
-                            </ul>
-                          </div>
-                          <div className="gnb-sub-banner">
-                            <span className="krds-badge bg-primary">신규 서비스</span>
-                            <button type="button" className="krds-btn medium text">
-                              메뉴명 <i className="svg-icon ico-angle right"></i>
-                            </button>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <a href="#" className="gnb-sub-trigger is-link" data-trigger="gnb">
-                          2Depth
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="#"
-                          className="gnb-sub-trigger is-link external-link"
-                          data-trigger="gnb"
-                          target="_blank"
-                          title="새 창 열림"
-                        >
-                          2Depth
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </li>
-
-              <li>
-                <button type="button" className="gnb-main-trigger" data-trigger="gnb">
-                  1Depth
-                </button>
-
-                <div className="gnb-toggle-wrap">
-                  <div className="gnb-main-list" data-has-submenu="true">
-                    <ul>
-                      <li>
-                        <button type="button" className="gnb-sub-trigger" data-trigger="gnb">
-                          2Depth
-                        </button>
-
-                        <div className="gnb-sub-list">
-                          <div className="gnb-sub-content">
-                            <h2 className="sub-title">
-                              <span>2Depth title</span>
-                            </h2>
-                            <ul className="type-description">
-                              <li>
-                                <h3 className="tit">
-                                  <a href="#" target="_blank" title="새 창 열림">
-                                    3Depth title <i className="svg-icon ico-go"></i>
-                                  </a>
-                                </h3>
-                                <p className="txt">메뉴명과 메뉴에 관한 간략한 설명이 표시되는 스타일입니다.</p>
-                              </li>
-                            </ul>
-                          </div>
-                          <div className="gnb-sub-banner">
-                            <span className="krds-badge bg-primary">신규 서비스</span>
-                            <button type="button" className="krds-btn medium text">
-                              메뉴명 <i className="svg-icon ico-angle right"></i>
-                            </button>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <button type="button" className="gnb-sub-trigger" data-trigger="gnb">
-                          2Depth
-                        </button>
-
-                        <div className="gnb-sub-list between">
-                          <div className="gnb-sub-content">
-                            <h2 className="sub-title">
-                              <span>2Depth title</span>
-                            </h2>
-                            <ul className="type-description">
-                              <li>
-                                <h3 className="tit">
-                                  <a href="#" target="_blank" title="새 창 열림">
-                                    3Depth title <i className="svg-icon ico-go"></i>
-                                  </a>
-                                </h3>
-                                <p className="txt">메뉴명과 메뉴에 관한 간략한 설명이 표시되는 스타일입니다.</p>
-                              </li>
-                            </ul>
-                          </div>
-                          <div className="gnb-sub-banner">
-                            <span className="krds-badge bg-primary">신규 서비스</span>
-                            <button type="button" className="krds-btn medium text">
-                              메뉴명 <i className="svg-icon ico-angle right"></i>
-                            </button>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <a href="#" className="gnb-sub-trigger is-link" data-trigger="gnb">
-                          2Depth
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="#"
-                          className="gnb-sub-trigger is-link external-link"
-                          data-trigger="gnb"
-                          target="_blank"
-                          title="새 창 열림"
-                        >
-                          2Depth
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </li>
-
-              <li>
-                <button type="button" className="gnb-main-trigger" data-trigger="gnb">
-                  1Depth
-                </button>
-
-                <div className="gnb-toggle-wrap">
-                  <div className="gnb-main-list">
-                    <div className="gnb-sub-list single-list between">
-                      <div className="gnb-sub-content">
-                        <h2 className="sub-title">
-                          <span>2Depth title</span>
-                        </h2>
-                        <ul>
-                          <li>
-                            <a href="#">Last depth</a>
-                          </li>
-                          <li>
-                            <a href="#">Last depth</a>
-                          </li>
-                          <li>
-                            <a href="#">Last depth</a>
-                          </li>
-                          <li>
-                            <a href="#">Last depth</a>
-                          </li>
-                          <li>
-                            <a href="#">Last depth</a>
-                          </li>
-                          <li>
-                            <a href="#">Last depth</a>
-                          </li>
-                          <li>
-                            <a href="#">Last depth</a>
-                          </li>
-                          <li>
-                            <a href="#">Last depth</a>
-                          </li>
-                          <li>
-                            <a href="#">Last depth</a>
-                          </li>
-                        </ul>
-                      </div>
-                      <div className="gnb-sub-banner">
-                        <span className="krds-badge bg-primary">신규 서비스</span>
-                        <button type="button" className="krds-btn medium text">
-                          메뉴명 <i className="svg-icon ico-angle right"></i>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </li>
-
-              <li>
-                <a href="#" className="gnb-main-trigger is-link" data-trigger="gnb">
-                  링크(anchor)
-                </a>
-              </li>
-              <li>
-                <button type="button" className="gnb-main-trigger is-link" data-trigger="gnb">
-                  링크(anchor)
-                </button>
-              </li>
-            </ul>
-          </div>
-        </nav>
+        {children}
       </div>
 
       <div id="mobile-nav" className="krds-main-menu-mobile">
