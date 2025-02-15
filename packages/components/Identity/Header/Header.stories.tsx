@@ -47,12 +47,19 @@ export const Default: Story = {
       <MainMenu>
         <MainMenuItem title="메뉴 1번">
           <SubMenuItem
+            variant="menu"
             title="2Depth-bar"
             subtitle="2Depth subtitle #1"
             link="#"
             bannerTitle="배너 타이틀 #1"
             bannerButton="배너 버튼 #1"
           >
+            <SubMenuContents title="3Depth-title" />
+            <SubMenuContents title="3Depth-title" />
+            <SubMenuContents title="3Depth-title" />
+            <SubMenuContents title="3Depth-title" />
+            <SubMenuContents title="3Depth-title" />
+            <SubMenuContents title="3Depth-title" />
             <SubMenuContents title="3Depth-title" />
           </SubMenuItem>
           <SubMenuItem
@@ -62,6 +69,7 @@ export const Default: Story = {
             link="#"
             bannerTitle="배너 타이틀 #2"
             bannerButton="배너 버튼 #2"
+            bannerPosition="right"
           >
             <SubMenuContents title="3Depth-title #1" description="3Depth subtitle #1" />
             <SubMenuContents title="3Depth-title #2" description="3Depth subtitle #2" />

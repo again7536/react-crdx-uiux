@@ -1,5 +1,7 @@
 import Icon from '@/components/Others/Icon/Icon';
-import { useState } from 'react';
+import { useContext } from 'react';
+import { SubMenuContext } from '../useMenuStore';
+import { useStore } from 'zustand';
 
 interface SubMenuContentsProps {
   title: string;
@@ -8,17 +10,13 @@ interface SubMenuContentsProps {
 }
 
 const SubMenuContents = ({ title, description, link }: SubMenuContentsProps) => {
-  const [variant, setVariant] = useState<'menu' | 'menu-description'>('menu');
+  const subMenuStore = useContext(SubMenuContext);
+  const { variant, isSingleList } = useStore(subMenuStore!);
 
   return (
-    <li
-      ref={(node) => {
-        setVariant(node?.parentElement?.dataset.variant as 'menu' | 'menu-description');
-        return () => {};
-      }}
-    >
-      {variant === 'menu' && <a href={link}>{title}</a>}
-      {variant !== 'menu' && (
+    <li>
+      {(variant === 'menu' || isSingleList) && <a href={link}>{title}</a>}
+      {variant === 'menu-description' && (
         <>
           <h3 className="tit">
             {link && (

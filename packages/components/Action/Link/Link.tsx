@@ -17,7 +17,7 @@
 
 import Icon from '@/components/Others/Icon/Icon';
 
-interface LinkProps extends React.HTMLAttributes<HTMLAnchorElement> {
+interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   children: React.ReactNode;
   href: string;
   size?: 'small' | 'medium' | 'large';
@@ -25,6 +25,7 @@ interface LinkProps extends React.HTMLAttributes<HTMLAnchorElement> {
   disabled?: boolean;
   basic?: boolean;
   icon?: 'go' | 'angle right';
+  colored?: boolean;
 }
 
 const Link = ({
@@ -36,13 +37,14 @@ const Link = ({
   disabled = false,
   basic = false,
   icon = 'go',
+  colored = true,
   ...props
 }: LinkProps) => {
   return (
     <a
       {...props}
       href={href}
-      className={`krds-btn ${size} link ${basic ? 'basic' : ''} ${disabled ? 'disabled' : ''} ${className}`}
+      className={`krds-btn ${size} ${colored ? 'link' : 'text'} ${basic ? 'basic' : ''} ${disabled ? 'disabled' : ''} ${className}`}
     >
       <span className={underline ? 'underline' : ''}>{children}</span>
       {icon && <Icon name={icon} />}
@@ -51,3 +53,4 @@ const Link = ({
 };
 
 export default Link;
+export type { LinkProps };
