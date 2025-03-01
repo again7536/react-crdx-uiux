@@ -1,16 +1,34 @@
+import React, { useEffect, useMemo } from 'react';
+import { useMainMenuMobileStore } from '../useMainMenuMobileStore';
+import { useCreateMainMenuItemMobileStore, MainMenuItemMobileContext } from './useMainMenuItemMobileStore';
+import { useStore } from 'zustand';
+
 interface MainMenuItemMobileProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
-  children: string;
+  title: string;
 }
 
-const MainMenuItemMobile = ({ children, className, ...props }: MainMenuItemMobileProps) => {
-  return (
-    <li>
-      <a {...props} className={`gnb-main-trigger ${className}`}>
-        {children}
-      </a>
-    </li>
-  );
+// NOTE. This component delegates rendering to MainMenuItemMobileRenderer.
+const MainMenuItemMobile = ({ children, className, id, ...props }: MainMenuItemMobileProps) => {
+  const memoizedId = useMemo(() => id ?? window.crypto.randomUUID(), [id]);
+  const { addMainMenuItem, removeMainMenuItem } = useMainMenuMobileStore();
+  const mainMenuItemStore = useCreateMainMenuItemMobileStore(memoizedId);
+  const { subMenuGroup } = useStore(mainMenuItemStore);
+
+  useEffect(() => {
+    addMainMenuItem({
+      id: memoizedId,
+      href: props.href ?? `#${subMenuGroup?.id}`, // anchor submenu group to main menu item
+      className,
+      ...props,
+    });
+
+    return () => {
+      removeMainMenuItem(memoizedId);
+    };
+  }, [memoizedId, className, children, ...Object.values(props), subMenuGroup?.id]);
+
+  return <MainMenuItemMobileContext value={mainMenuItemStore}>{children}</MainMenuItemMobileContext>;
 };
 
-export default MainMenuItemMobile;
+export default React.memo(MainMenuItemMobile);
 export type { MainMenuItemMobileProps };

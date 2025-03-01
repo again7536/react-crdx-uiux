@@ -1,6 +1,6 @@
-import Icon, { IconTypes } from '@/components/Others/Icon/Icon';
+import { IconTypes } from '@/components/Others/Icon/Icon';
 
-type ButtonColor = 'primary' | 'secondary' | 'tertiary';
+type ButtonColor = 'primary' | 'secondary' | 'tertiary' | 'none';
 type ButtonSize = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
 type ButtonVariant = 'normal' | 'text' | 'icon' | 'icon-border';
 
@@ -24,19 +24,17 @@ const Button = ({
   variant = 'normal',
   className,
   screenReaderTextForIcon,
-  icon,
   ...props
 }: ButtonProps) => {
   return (
     <button
       {...props}
-      className={`krds-btn ${color} ${size} ${variant.split('-').join(' ')} ${icon ? 'icon' : ''} ${className}`}
+      className={`krds-btn ${color} ${size} ${variant.split('-').join(' ')} ${variant === 'icon' ? 'icon' : ''} ${className}`}
       disabled={disabled}
       onClick={onClick}
     >
       {variant === 'icon' && <span className="sr-only">{screenReaderTextForIcon}</span>}
       {children}
-      {icon && <Icon name={icon} />}
     </button>
   );
 };

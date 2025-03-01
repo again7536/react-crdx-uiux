@@ -17,6 +17,8 @@ export default {
 type Story = StoryObj<typeof MainMenuMobile>;
 export const Primary: Story = {
   args: {
+    className: 'sample',
+    style: { display: 'block', position: 'static', visibility: 'visible' },
     utilities: [
       <HeaderUtility key="1" className="xsmall">
         메뉴명
@@ -25,58 +27,55 @@ export const Primary: Story = {
         메뉴명
       </HeaderUtility>,
     ],
-    mainMenuItems: [
-      <MainMenuItemMobile key="1" href="#mGnb-anchor1">
-        1Depth
-      </MainMenuItemMobile>,
-      <MainMenuItemMobile key="2" href="#mGnb-anchor2">
-        2Depth
-      </MainMenuItemMobile>,
-      <MainMenuItemMobile key="3" href="#mGnb-anchor3">
-        3Depth
-      </MainMenuItemMobile>,
-    ],
-    subMenuGroups: [
-      <SubMenuGroupMobile id="mGnb-anchor1" title="1Depth">
-        <SubMenuItemMobile title="2Depth">
-          <Depth3MenuItemMobile title="3Depth" />
-          <Depth3MenuItemMobile title="3Depth" />
-          <Depth3MenuItemMobile title="3Depth">
-            <Depth4MenuItemMobile>4Depth</Depth4MenuItemMobile>
-          </Depth3MenuItemMobile>
-        </SubMenuItemMobile>
-        <SubMenuItemMobile title="2Depth" />
-        <SubMenuItemMobile title="2Depth" />
-        <SubMenuItemMobile title="2Depth" />
-        <SubMenuItemMobile title="2Depth" />
-      </SubMenuGroupMobile>,
-      <SubMenuGroupMobile id="mGnb-anchor2" title="1Depth">
-        <SubMenuItemMobile title="2Depth">
-          <Depth3MenuItemMobile title="3Depth" />
-          <Depth3MenuItemMobile title="3Depth" />
-          <Depth3MenuItemMobile title="3Depth">
-            <Depth4MenuItemMobile>4Depth</Depth4MenuItemMobile>
-          </Depth3MenuItemMobile>
-        </SubMenuItemMobile>
-        <SubMenuItemMobile title="2Depth" />
-        <SubMenuItemMobile title="2Depth" />
-        <SubMenuItemMobile title="2Depth" />
-        <SubMenuItemMobile title="2Depth" />
-      </SubMenuGroupMobile>,
-      <SubMenuGroupMobile id="mGnb-anchor3" title="1Depth">
-        <SubMenuItemMobile title="2Depth">
-          <Depth3MenuItemMobile title="3Depth" />
-          <Depth3MenuItemMobile title="3Depth" />
-          <Depth3MenuItemMobile title="3Depth">
-            <Depth4MenuItemMobile>4Depth</Depth4MenuItemMobile>
-          </Depth3MenuItemMobile>
-        </SubMenuItemMobile>
-        <SubMenuItemMobile title="2Depth" />
-        <SubMenuItemMobile title="2Depth" />
-        <SubMenuItemMobile title="2Depth" />
-        <SubMenuItemMobile title="2Depth" />
-      </SubMenuGroupMobile>,
-    ],
+    children: (
+      <>
+        <MainMenuItemMobile key="1" href="#mGnb-anchor1" title="1Depth">
+          <SubMenuGroupMobile id="mGnb-anchor1" title="1Depth">
+            <SubMenuItemMobile title="2Depth">
+              <Depth3MenuItemMobile title="3Depth" />
+              <Depth3MenuItemMobile title="3Depth" />
+              <Depth3MenuItemMobile title="3Depth">
+                <Depth4MenuItemMobile>4Depth</Depth4MenuItemMobile>
+              </Depth3MenuItemMobile>
+            </SubMenuItemMobile>
+            <SubMenuItemMobile title="2Depth" />
+            <SubMenuItemMobile title="2Depth" />
+            <SubMenuItemMobile title="2Depth" />
+            <SubMenuItemMobile title="2Depth" />
+          </SubMenuGroupMobile>
+        </MainMenuItemMobile>
+        <MainMenuItemMobile key="2" href="#mGnb-anchor2" title="2Depth">
+          <SubMenuGroupMobile id="mGnb-anchor2" title="1Depth">
+            <SubMenuItemMobile title="2Depth">
+              <Depth3MenuItemMobile title="3Depth" />
+              <Depth3MenuItemMobile title="3Depth" />
+              <Depth3MenuItemMobile title="3Depth">
+                <Depth4MenuItemMobile>4Depth</Depth4MenuItemMobile>
+              </Depth3MenuItemMobile>
+            </SubMenuItemMobile>
+            <SubMenuItemMobile title="2Depth" />
+            <SubMenuItemMobile title="2Depth" />
+            <SubMenuItemMobile title="2Depth" />
+            <SubMenuItemMobile title="2Depth" />
+          </SubMenuGroupMobile>
+        </MainMenuItemMobile>
+        <MainMenuItemMobile key="3" href="#mGnb-anchor3" title="3Depth">
+          <SubMenuGroupMobile id="mGnb-anchor3" title="1Depth">
+            <SubMenuItemMobile title="2Depth">
+              <Depth3MenuItemMobile title="3Depth" />
+              <Depth3MenuItemMobile title="3Depth" />
+              <Depth3MenuItemMobile title="3Depth">
+                <Depth4MenuItemMobile>4Depth</Depth4MenuItemMobile>
+              </Depth3MenuItemMobile>
+            </SubMenuItemMobile>
+            <SubMenuItemMobile title="2Depth" />
+            <SubMenuItemMobile title="2Depth" />
+            <SubMenuItemMobile title="2Depth" />
+            <SubMenuItemMobile title="2Depth" />
+          </SubMenuGroupMobile>
+        </MainMenuItemMobile>
+      </>
+    ),
     bottomLinks: [
       <Link key="1" href="#" icon="angle right" size="small" colored={false}>
         메뉴명

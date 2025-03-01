@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import Header from './Header';
-import HeaderUtilityLink from './HeaderUtility/HeaderUtility';
+import HeaderUtility from './HeaderUtility/HeaderUtility';
 import HeaderUtilityDropdown from './HeaderUtility/HeaderUtilityDropdown';
 import HeaderAction from './HeaderAction/HeaderAction';
 import HeaderActionDropdown from './HeaderAction/HeaderActionDropdown';
@@ -19,7 +19,7 @@ type Story = StoryObj<typeof Header>;
 export const Default: Story = {
   args: {
     utilities: [
-      <HeaderUtilityLink key="1">메뉴명</HeaderUtilityLink>,
+      <HeaderUtility key="1">메뉴명</HeaderUtility>,
       <HeaderUtilityDropdown id="utility-dropdown" dropItems={[<DropItem>메뉴명</DropItem>]}>
         메뉴명
       </HeaderUtilityDropdown>,

@@ -1,24 +1,24 @@
 import Button from '@/components/Action/Button/Button';
 import { HeaderUtilityProps } from '@/components/Identity/Header/HeaderUtility/HeaderUtility';
 import Icon from '@/components/Others/Icon/Icon';
-import { MainMenuItemMobileProps } from './MainMenuItemMobile/MainMenuItemMobile';
-import { SubMenuGroupMobileProps } from './SubMenuGroupMobile/SubMenuGroupMobile';
+import MainMenuItemMobileRenderer, { MainMenuItemMobileProps } from './MainMenuItemMobile/MainMenuItemMobileRenderer';
+import SubMenuGroupMobileRenderer, { SubMenuGroupMobileProps } from './SubMenuGroupMobile/SubMenuGroupMobileRenderer';
 import { LinkProps } from '@/components/Action/Link/Link';
+import { useMainMenuMobileStore } from './useMainMenuMobileStore';
 
-interface MainMenuMobileProps {
+type MainMenuMobileChild = React.ReactElement<MainMenuItemMobileProps> | React.ReactElement<SubMenuGroupMobileProps>;
+interface MainMenuMobileProps extends React.HTMLAttributes<HTMLDivElement> {
+  children: MainMenuMobileChild[] | MainMenuMobileChild;
   utilities?: React.ReactElement<HeaderUtilityProps>[];
-  mainMenuItems: React.ReactElement<MainMenuItemMobileProps>[] | React.ReactElement<MainMenuItemMobileProps>;
-  subMenuGroups: React.ReactElement<SubMenuGroupMobileProps>[] | React.ReactElement<SubMenuGroupMobileProps>;
-  bottomLinks?: React.ReactElement<LinkProps>[] | React.ReactElement<LinkProps>;
+  bottomLinks?: React.ReactElement<LinkProps>[];
 }
 
-const MainMenuMobile = ({ utilities, mainMenuItems, subMenuGroups, bottomLinks }: MainMenuMobileProps) => {
+const MainMenuMobile = ({ children, utilities, bottomLinks, className, ...props }: MainMenuMobileProps) => {
+  const { mainMenuItems, subMenuGroups } = useMainMenuMobileStore();
+
   return (
-    <div
-      id="mobile-nav"
-      className="krds-main-menu-mobile sample"
-      style={{ display: 'block', position: 'static', visibility: 'visible' }}
-    >
+    <div {...props} id="mobile-nav" className={`krds-main-menu-mobile ${className}`}>
+      {children}
       <div className="gnb-wrap">
         <div className="gnb-header">
           <div className="gnb-utils">
@@ -63,15 +63,32 @@ const MainMenuMobile = ({ utilities, mainMenuItems, subMenuGroups, bottomLinks }
         <div className="gnb-body">
           <div className="gnb-menu">
             <div className="menu-wrap">
-              <ul>{mainMenuItems}</ul>
+              <ul>
+                {mainMenuItems.map((item) => (
+                  <MainMenuItemMobileRenderer key={item.id} {...item} />
+                ))}
+              </ul>
             </div>
-            <div className="submenu-wrap">{subMenuGroups}</div>
+            <div className="submenu-wrap">
+              {subMenuGroups.map((item) => (
+                <SubMenuGroupMobileRenderer key={item.id} {...item} />
+              ))}
+            </div>
           </div>
 
           <div className="gnb-bottom">{bottomLinks}</div>
         </div>
 
-        <Button id="close-nav" type="button" size="medium" icon="popup-close" screenReaderTextForIcon="전체메뉴 닫기" />
+        <Button
+          id="close-nav"
+          type="button"
+          size="medium"
+          variant="icon"
+          color="none"
+          screenReaderTextForIcon="전체메뉴 닫기"
+        >
+          <Icon name="popup-close" />
+        </Button>
       </div>
     </div>
   );
