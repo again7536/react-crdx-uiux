@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import MainMenuMobile from './MainMenuMobile';
+import MainMenuMobile from './MainMenuMobileRenderer';
 import HeaderUtility from '@/components/Identity/Header/HeaderUtility/HeaderUtility';
 import SubMenuItemMobile from './SubMenuItemMobile/SubMenuItemMobile';
 import Depth3MenuItemMobile from './Depth3MenuItemMobile/Depth3MenuItemMobile';
@@ -8,6 +8,8 @@ import Depth4MenuItemMobile from './Depth4MenuItemMobile/Depth4MenuItemMobile';
 import SubMenuGroupMobile from './SubMenuGroupMobile/SubMenuGroupMobile';
 import MainMenuItemMobile from './MainMenuItemMobile/MainMenuItemMobile';
 import Link from '@/components/Action/Link/Link';
+import Button from '@/components/Action/Button/Button';
+import { useMainMenuMobileStore } from '@/hooks/store/Discover/MainMenuMobile/useMainMenuMobileStore';
 
 export default {
   title: 'Discover/MainMenuMobile',
@@ -17,8 +19,6 @@ export default {
 type Story = StoryObj<typeof MainMenuMobile>;
 export const Primary: Story = {
   args: {
-    className: 'sample',
-    style: { display: 'block', position: 'static', visibility: 'visible' },
     utilities: [
       <HeaderUtility key="1" className="xsmall">
         메뉴명
@@ -84,5 +84,15 @@ export const Primary: Story = {
         메뉴명
       </Link>,
     ],
+  },
+  render: (args) => {
+    const { setIsOpen } = useMainMenuMobileStore();
+
+    return (
+      <>
+        <Button onClick={() => setIsOpen(true)}>Open</Button>
+        <MainMenuMobile {...args} />
+      </>
+    );
   },
 };

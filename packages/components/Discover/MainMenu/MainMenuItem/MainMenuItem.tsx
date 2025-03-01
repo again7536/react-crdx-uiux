@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { SubMenuItemProps } from '../SubMenuItem/SubMenuItem';
 import { getMainMenuUniqueId } from '@/utils/MainMenuUtil';
-import { createMainMenuStore, MainMenuContext, useMenuStore } from '../useMenuStore';
+import { useMainMenuStore } from '@/hooks/store/Discover/MainMenu/useMainMenuStore';
+import { MainMenuContext, useCreateMainMenuItemStore } from '@/hooks/store/Discover/MainMenu/useMainMenuItemStore';
 import { useStore } from 'zustand';
 
 interface MainMenuItemProps {
@@ -11,9 +12,9 @@ interface MainMenuItemProps {
 }
 
 const MainMenuItem = ({ id, title, children }: MainMenuItemProps) => {
-  const { openedMainMenuId, toggleMainMenu } = useMenuStore();
+  const { openedMainMenuId, toggleMainMenu } = useMainMenuStore();
   const uniqueId = useMemo(() => id ?? getMainMenuUniqueId(), []);
-  const mainMenuStore = useRef(createMainMenuStore(uniqueId)).current;
+  const mainMenuStore = useCreateMainMenuItemStore(uniqueId);
   const { hasSubMenu, setHasSubMenu } = useStore(mainMenuStore);
 
   useEffect(() => {

@@ -1,10 +1,12 @@
 import Button from '@/components/Action/Button/Button';
 import Link from '@/components/Action/Link/Link';
 import Icon from '@/components/Others/Icon/Icon';
-import { useCallback, useContext, useEffect, useMemo, useRef } from 'react';
+import { useCallback, useContext, useEffect, useMemo } from 'react';
 import { getSubMenuUniqueId } from '@/utils/MainMenuUtil';
-import { createSubMenuStore, MainMenuContext, SubMenuContext, useMenuStore } from '../useMenuStore';
+import { useMainMenuStore } from '@/hooks/store/Discover/MainMenu/useMainMenuStore';
+import { MainMenuContext } from '@/hooks/store/Discover/MainMenu/useMainMenuItemStore';
 import { SubMenuContentsProps } from '../SubMenuContents/SubMenuContents';
+import { SubMenuContext, useCreateSubMenuItemStore } from '@/hooks/store/Discover/MainMenu/useSubMenuItemStore';
 import { useStore } from 'zustand';
 interface SubMenuItemProps {
   id?: string;
@@ -33,9 +35,9 @@ const SubMenuItem = ({
 }: SubMenuItemProps) => {
   const mainMenuStore = useContext(MainMenuContext);
   const { hasSubMenu } = useStore(mainMenuStore!);
-  const { openedSubMenuId, toggleSubMenu } = useMenuStore();
+  const { openedSubMenuId, toggleSubMenu } = useMainMenuStore();
   const uniqueId = useMemo(() => id ?? getSubMenuUniqueId(), []);
-  const subMenuStore = useRef(createSubMenuStore(uniqueId)).current;
+  const subMenuStore = useCreateSubMenuItemStore(uniqueId);
   const { setVariant, setIsSingleList } = useStore(subMenuStore);
 
   useEffect(() => {

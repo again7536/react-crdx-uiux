@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useMemo } from 'react';
-import { useMainMenuMobileStore } from '../useMainMenuMobileStore';
+import { useMainMenuMobileStore } from '@/hooks/store/Discover/MainMenuMobile/useMainMenuMobileStore';
 import { SubMenuItemMobileProps } from '../SubMenuItemMobile/SubMenuItemMobile';
-import { MainMenuItemMobileContext } from '../MainMenuItemMobile/useMainMenuItemMobileStore';
+import { MainMenuItemMobileContext } from '@/hooks/store/Discover/MainMenuMobile/useMainMenuItemMobileStore';
 import { useStore } from 'zustand';
 
 interface SubMenuGroupMobileProps extends React.HTMLAttributes<HTMLDivElement> {

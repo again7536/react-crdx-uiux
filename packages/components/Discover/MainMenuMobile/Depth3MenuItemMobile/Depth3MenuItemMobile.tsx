@@ -10,13 +10,10 @@ const Depth3MenuItemMobile = ({ title, children, className, ...props }: Depth3Me
   const [isOpen, setIsOpen] = useState(false);
   const hasDepth4 = (Array.isArray(children) && children.length > 0) || (!Array.isArray(children) && children);
 
-  const handleClick = useCallback(
-    (event: React.MouseEvent<HTMLAnchorElement>) => {
-      setIsOpen(!isOpen);
-      props.onClick?.(event);
-    },
-    [isOpen, props.onClick],
-  );
+  const handleClick = useCallback(() => {
+    setIsOpen((prev) => !prev);
+  }, []);
+
   const handleGoBack = useCallback(() => {
     setIsOpen(false);
   }, []);

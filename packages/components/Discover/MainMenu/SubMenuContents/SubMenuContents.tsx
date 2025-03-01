@@ -1,6 +1,6 @@
 import Icon from '@/components/Others/Icon/Icon';
 import { useContext } from 'react';
-import { SubMenuContext } from '../useMenuStore';
+import { SubMenuContext } from '@/hooks/store/Discover/MainMenu/useSubMenuItemStore';
 import { useStore } from 'zustand';
 
 interface SubMenuContentsProps {

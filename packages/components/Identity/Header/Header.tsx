@@ -1,13 +1,20 @@
 import { HeaderUtilityDropdownProps } from './HeaderUtility/HeaderUtilityDropdown';
-import { HeaderUtilityProps } from './HeaderUtility/HeaderUtility';
-import { HeaderActionProps } from './HeaderAction/HeaderAction';
 import { MainMenuProps } from '@/components/Discover/MainMenu/MainMenu';
+import { useMainMenuMobileStore } from '@/hooks/store/Discover/MainMenuMobile/useMainMenuMobileStore';
+import { HeaderUtilityProps } from './HeaderUtility/HeaderUtility';
+import HeaderAction, { HeaderActionProps } from './HeaderAction/HeaderAction';
+import { useCallback } from 'react';
+import MainMenuMobileRenderer, {
+  MainMenuMobileProps,
+} from '@/components/Discover/MainMenuMobile/MainMenuMobileRenderer';
+import { useHeaderStore } from '@/hooks/store/Identity/Header/useHeaderStore';
+
 interface HeaderProps {
   utilities?: React.ReactElement<HeaderUtilityProps | HeaderUtilityDropdownProps>[];
   logoUrl?: string;
   logoScreenReaderText?: string;
   actions?: React.ReactElement<HeaderActionProps>[];
-  children?: React.ReactElement<MainMenuProps>;
+  children?: React.ReactElement<MainMenuProps | MainMenuMobileProps>;
 }
 
 const Header = ({
@@ -17,6 +24,13 @@ const Header = ({
   actions,
   children,
 }: HeaderProps) => {
+  const { mainMenuMobile } = useHeaderStore();
+  const { setIsOpen } = useMainMenuMobileStore();
+
+  const handleOpenMobileMenu = useCallback(() => {
+    setIsOpen(true);
+  }, [setIsOpen]);
+
   return (
     <header id="krds-header">
       <div className="header-in">
@@ -32,273 +46,19 @@ const Header = ({
                   <span className="sr-only">{logoScreenReaderText}</span>
                 </a>
               </h2>
-              <div className="header-actions">{actions}</div>
+              <div className="header-actions">
+                {actions}
+                <HeaderAction variant="all" aria-controls="mobile-nav" onClick={handleOpenMobileMenu}>
+                  전체메뉴
+                </HeaderAction>
+              </div>
             </div>
           </div>
         </div>
 
         {children}
       </div>
-
-      <div id="mobile-nav" className="krds-main-menu-mobile">
-        <div className="gnb-wrap">
-          <div className="gnb-header">
-            <div className="gnb-utils">
-              <ul className="utility-list">
-                <li>
-                  <button type="button" className="krds-btn xsmall text">
-                    메뉴명
-                  </button>
-                </li>
-                <li>
-                  <button type="button" className="krds-btn xsmall text">
-                    메뉴명
-                  </button>
-                </li>
-              </ul>
-            </div>
-
-            <div className="gnb-login">
-              {/* <span className="user">홍길동님</span>
-            <button type="button" className="krds-btn large text"><i className="svg-icon ico-logout"></i> 로그아웃</button> */}
-              <button type="button" className="krds-btn large text">
-                <i className="svg-icon ico-log"></i> 로그인을 해주세요
-              </button>
-            </div>
-
-            <div className="gnb-service-menu">
-              <a href="#" className="link">
-                메뉴명
-              </a>
-              <a href="#" className="link">
-                메뉴명
-              </a>
-              <a href="#" className="link">
-                메뉴명
-              </a>
-              <a href="#" className="link">
-                메뉴명
-              </a>
-            </div>
-
-            <div className="sch-input">
-              <input
-                type="text"
-                className="krds-input"
-                placeholder="찾고자 하는 메뉴명을 입력해 주세요"
-                title="찾고자 하는 메뉴명 입력"
-              />
-              <button type="button" className="krds-btn medium icon ico-search">
-                <span className="sr-only">검색</span>
-                <i className="svg-icon ico-sch"></i>
-              </button>
-            </div>
-          </div>
-
-          <div className="gnb-body">
-            <div className="gnb-menu">
-              <div className="menu-wrap">
-                <ul>
-                  <li>
-                    <a href="#mGnb-anchor1" className="gnb-main-trigger">
-                      1Depth
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#mGnb-anchor2" className="gnb-main-trigger">
-                      1Depth
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#mGnb-anchor3" className="gnb-main-trigger">
-                      1Depth
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#mGnb-anchor4" className="gnb-main-trigger">
-                      1Depth
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#mGnb-anchor5" className="gnb-main-trigger">
-                      1Depth
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <div className="submenu-wrap">
-                <div className="gnb-sub-list" id="mGnb-anchor1">
-                  <h2 className="sub-title">1Depth</h2>
-                  <ul>
-                    <li>
-                      <a href="#" className="gnb-sub-trigger">
-                        2Depth
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" className="gnb-sub-trigger">
-                        2Depth
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" className="gnb-sub-trigger">
-                        2Depth
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <div className="gnb-sub-list" id="mGnb-anchor2">
-                  <h2 className="sub-title">1Depth</h2>
-                  <ul>
-                    <li>
-                      <a href="#" className="gnb-sub-trigger">
-                        2Depth
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" className="gnb-sub-trigger">
-                        2Depth
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" className="gnb-sub-trigger">
-                        2Depth
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <div className="gnb-sub-list" id="mGnb-anchor3">
-                  <h2 className="sub-title">1Depth</h2>
-                  <ul>
-                    <li>
-                      <a href="#" className="gnb-sub-trigger">
-                        2Depth
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" className="gnb-sub-trigger">
-                        2Depth
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" className="gnb-sub-trigger">
-                        2Depth
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" className="gnb-sub-trigger has-depth3">
-                        2Depth
-                      </a>
-                      <div className="depth3-wrap">
-                        <ul>
-                          <li>
-                            <a href="#" className="depth3-trigger has-depth4">
-                              3Depth
-                            </a>
-                            <div className="depth4-wrap">
-                              <div className="depth4-head">
-                                <button type="button" className="krds-btn icon trigger-prev">
-                                  <span className="sr-only">이전화면</span>
-                                  <i className="svg-icon ico-angle left"></i>
-                                </button>
-                                <button type="button" className="krds-btn icon trigger-close">
-                                  <span className="sr-only">전체메뉴 닫기</span>
-                                  <i className="svg-icon ico-popup-close"></i>
-                                </button>
-                              </div>
-                              <ul className="depth4-body">
-                                <h4 className="sub-title">4Depth title</h4>
-                                <ul className="depth4-ul">
-                                  <li>
-                                    <a href="#">depth title</a>
-                                  </li>
-                                  <li>
-                                    <a href="#">depth title</a>
-                                  </li>
-                                  <li>
-                                    <a href="#">depth title</a>
-                                  </li>
-                                  <li>
-                                    <a href="#">depth title</a>
-                                  </li>
-                                </ul>
-                              </ul>
-                            </div>
-                          </li>
-                          <li>
-                            <a href="#" className="depth3-trigger">
-                              3Depth
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#" className="depth3-trigger">
-                              3Depth
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-                <div className="gnb-sub-list" id="mGnb-anchor4">
-                  <h2 className="sub-title">1Depth</h2>
-                  <ul>
-                    <li>
-                      <a href="#" className="gnb-sub-trigger">
-                        2Depth
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" className="gnb-sub-trigger">
-                        2Depth
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" className="gnb-sub-trigger">
-                        2Depth
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <div className="gnb-sub-list" id="mGnb-anchor5">
-                  <h2 className="sub-title">1Depth</h2>
-                  <ul>
-                    <li>
-                      <a href="#" className="gnb-sub-trigger">
-                        2Depth
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" className="gnb-sub-trigger">
-                        2Depth
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" className="gnb-sub-trigger">
-                        2Depth
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div className="gnb-bottom">
-              <a href="#" className="krds-btn medium text">
-                메뉴명 <i className="svg-icon ico-angle right"></i>
-              </a>
-              <a href="#" className="krds-btn medium text" target="_blank" title="새 창 열기">
-                {' '}
-                메뉴명 <i className="svg-icon ico-go"></i>
-              </a>
-            </div>
-          </div>
-
-          <button type="button" className="krds-btn medium icon" id="close-nav">
-            <span className="sr-only">전체메뉴 닫기</span>
-            <i className="svg-icon ico-popup-close"></i>
-          </button>
-        </div>
-      </div>
+      {mainMenuMobile && <MainMenuMobileRenderer {...mainMenuMobile} />}
     </header>
   );
 };

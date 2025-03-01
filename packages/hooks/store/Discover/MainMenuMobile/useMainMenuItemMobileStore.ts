@@ -1,5 +1,5 @@
 import { create, StoreApi, UseBoundStore } from 'zustand';
-import { SubMenuGroupMobileProps } from '../SubMenuGroupMobile/SubMenuGroupMobile';
+import { SubMenuGroupMobileProps } from '@/components/Discover/MainMenuMobile/SubMenuGroupMobile/SubMenuGroupMobile';
 import { createContext, useRef } from 'react';
 interface MainMenuItemMobileStore {
   id: string;

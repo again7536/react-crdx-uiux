@@ -17,7 +17,7 @@ const HEADER_BUTTON_VARIANT_CLASS: Record<HeaderButtonVariant, string> = {
   all: 'all',
 };
 
-const HeaderActionButton = ({ children, variant = 'login', title, onClick, ...props }: HeaderActionProps) => {
+const HeaderAction = ({ children, variant = 'login', title, onClick, ...props }: HeaderActionProps) => {
   return (
     <button
       {...props}
@@ -31,5 +31,5 @@ const HeaderActionButton = ({ children, variant = 'login', title, onClick, ...pr
   );
 };
 
-export default HeaderActionButton;
+export default HeaderAction;
 export type { HeaderActionProps };

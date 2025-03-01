@@ -1,6 +1,9 @@
 import React, { useEffect, useMemo } from 'react';
-import { useMainMenuMobileStore } from '../useMainMenuMobileStore';
-import { useCreateMainMenuItemMobileStore, MainMenuItemMobileContext } from './useMainMenuItemMobileStore';
+import { useMainMenuMobileStore } from '@/hooks/store/Discover/MainMenuMobile/useMainMenuMobileStore';
+import {
+  useCreateMainMenuItemMobileStore,
+  MainMenuItemMobileContext,
+} from '@/hooks/store/Discover/MainMenuMobile/useMainMenuItemMobileStore';
 import { useStore } from 'zustand';
 
 interface MainMenuItemMobileProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
