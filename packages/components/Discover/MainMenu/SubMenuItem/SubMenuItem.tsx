@@ -4,10 +4,13 @@ import Icon from '@/components/Others/Icon/Icon';
 import { useCallback, useContext, useEffect, useMemo } from 'react';
 import { getSubMenuUniqueId } from '@/utils/MainMenuUtil';
 import { useMainMenuStore } from '@/hooks/store/Discover/MainMenu/useMainMenuStore';
-import { MainMenuContext } from '@/hooks/store/Discover/MainMenu/useMainMenuItemStore';
+import { MainMenuItemContext } from '@/hooks/store/Discover/MainMenu/useMainMenuItemStore';
 import { SubMenuContentsProps } from '../SubMenuContents/SubMenuContents';
 import { SubMenuContext, useCreateSubMenuItemStore } from '@/hooks/store/Discover/MainMenu/useSubMenuItemStore';
 import { useStore } from 'zustand';
+import SubMenuLinkItem from './variants/SubMenuLinkItem';
+import SubMenuExternalLinkItem from './variants/SubMenuExternalLinkItem';
+import SubMenuSingleListItem from './variants/SubMenuSingleListItem';
 interface SubMenuItemProps {
   id?: string;
   title: string;
@@ -33,80 +36,54 @@ const SubMenuItem = ({
   bannerPosition = 'bottom',
   children,
 }: SubMenuItemProps) => {
-  const mainMenuStore = useContext(MainMenuContext);
-  const { hasSubMenu } = useStore(mainMenuStore!);
-  const { openedSubMenuId, toggleSubMenu } = useMainMenuStore();
+  const mainMenuItemStore = useContext(MainMenuItemContext);
+  const { addSubMenu, removeSubMenu, isSingleList } = useStore(mainMenuItemStore!);
+  const { isSubMenuOpened, toggleSubMenu } = useMainMenuStore();
   const uniqueId = useMemo(() => id ?? getSubMenuUniqueId(), []);
   const subMenuStore = useCreateSubMenuItemStore(uniqueId);
-  const { setVariant, setIsSingleList } = useStore(subMenuStore);
+  const { setVariant } = useStore(subMenuStore);
+
+  const isOpened = isSubMenuOpened(uniqueId);
+
+  const handleClickSubMenu = useCallback(() => {
+    if (!isOpened) {
+      toggleSubMenu?.(uniqueId);
+    }
+  }, [toggleSubMenu, uniqueId, isOpened]);
 
   useEffect(() => {
     setVariant(variant);
   }, [variant, setVariant]);
 
   useEffect(() => {
-    setIsSingleList(!hasSubMenu);
-  }, [hasSubMenu, setIsSingleList]);
+    addSubMenu(uniqueId);
 
-  const handleClickSubMenu = useCallback(() => {
-    toggleSubMenu?.(uniqueId);
-  }, [toggleSubMenu, uniqueId]);
+    return () => {
+      removeSubMenu(uniqueId);
+    };
+  }, [addSubMenu, removeSubMenu, uniqueId]);
 
-  if (!hasSubMenu) {
+  if (isSingleList()) {
     return (
       <SubMenuContext value={subMenuStore}>
-        <div
+        <SubMenuSingleListItem
           id={uniqueId}
-          className={['gnb-sub-list', 'single-list', bannerPosition === 'right' ? 'between' : ''].join(' ')}
-        >
-          <div className="gnb-sub-content">
-            <h2 className="sub-title">
-              {subtitle}
-              {link && titleLinkText && (
-                <Link href={link} basic size="small" icon="angle right" underline>
-                  {titleLinkText}
-                </Link>
-              )}
-            </h2>
-            <ul data-variant="single-list">{children}</ul>
-          </div>
-          {bannerTitle && bannerButton && (
-            <div className="gnb-sub-banner">
-              <span className="krds-badge bg-primary">{bannerTitle}</span>
-              <Button variant="text" size="medium">
-                {bannerButton} <Icon name="angle right" />
-              </Button>
-            </div>
-          )}
-        </div>
+          subtitle={subtitle}
+          link={link}
+          titleLinkText={titleLinkText}
+          children={children}
+          bannerTitle={bannerTitle}
+          bannerButton={bannerButton}
+          bannerPosition={bannerPosition}
+        />
       </SubMenuContext>
     );
   }
-
   if (variant === 'link') {
-    return (
-      <li id={uniqueId}>
-        <a href={link} className="gnb-sub-trigger is-link" data-trigger="gnb">
-          {title}
-        </a>
-      </li>
-    );
+    return <SubMenuLinkItem id={uniqueId} link={link} title={title} />;
   }
-
   if (variant === 'external-link') {
-    return (
-      <li id={uniqueId}>
-        <a
-          href={link}
-          className="gnb-sub-trigger is-link external-link"
-          data-trigger="gnb"
-          target="_blank"
-          title={title}
-        >
-          {title}
-        </a>
-      </li>
-    );
+    return <SubMenuExternalLinkItem id={uniqueId} link={link} title={title} />;
   }
 
   return (
@@ -114,10 +91,10 @@ const SubMenuItem = ({
       <li>
         <button
           type="button"
-          className={`gnb-sub-trigger ${openedSubMenuId === uniqueId ? 'active' : ''}`}
+          className={`gnb-sub-trigger ${isOpened ? 'active' : ''}`}
           data-trigger="gnb"
           aria-controls={uniqueId}
-          aria-expanded={openedSubMenuId === uniqueId}
+          aria-expanded={isOpened}
           aria-haspopup="true"
           id={uniqueId}
           onClick={handleClickSubMenu}
@@ -126,11 +103,7 @@ const SubMenuItem = ({
         </button>
 
         <div
-          className={[
-            'gnb-sub-list',
-            openedSubMenuId === uniqueId ? 'active' : '',
-            bannerPosition === 'right' ? 'between' : '',
-          ].join(' ')}
+          className={['gnb-sub-list', isOpened ? 'active' : '', bannerPosition === 'right' ? 'between' : ''].join(' ')}
         >
           <div className="gnb-sub-content">
             <h2 className="sub-title">

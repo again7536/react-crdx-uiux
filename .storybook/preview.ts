@@ -1,5 +1,6 @@
-import type { Preview } from "@storybook/react";
-import "krds-uiux/resources/scss/component/output.scss";
+import type { Preview } from '@storybook/react';
+import 'krds-uiux/resources/scss/component/output.scss';
+import './preview.scss';
 
 const preview: Preview = {
   parameters: {

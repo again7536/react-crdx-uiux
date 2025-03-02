@@ -1,6 +1,6 @@
 import { create, StoreApi, UseBoundStore } from 'zustand';
 import { createContext } from 'react';
-import { MainMenuMobileProps } from '@/components/Discover/MainMenuMobile/MainMenuMobile';
+import type { MainMenuMobileProps } from '@/components/Discover/MainMenuMobile/MainMenuMobile';
 
 interface HeaderStore {
   mainMenuMobile: MainMenuMobileProps | null;

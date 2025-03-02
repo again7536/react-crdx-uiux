@@ -1,23 +1,31 @@
+import { getMainMenuUniqueId } from '@/utils/MainMenuUtil';
 import { createContext, useRef } from 'react';
 import { create, StoreApi, UseBoundStore } from 'zustand';
 
-interface MainMenuStore {
+interface MainMenuItemStore {
   id: string;
-  hasSubMenu: boolean;
-  setHasSubMenu: (hasSubMenu: boolean) => void;
+  subMenuIds: string[];
+  addSubMenu: (subMenuId: string) => void;
+  removeSubMenu: (subMenuId: string) => void;
+  isSingleList: () => boolean;
 }
 
-const createMainMenuItemStore = (id: string) => {
-  return create<MainMenuStore>((set) => ({
-    id,
-    hasSubMenu: false,
-    setHasSubMenu: (hasSubMenu) => set(() => ({ hasSubMenu })),
+const createMainMenuItemStore = (id?: string) => {
+  return create<MainMenuItemStore>((set, get) => ({
+    id: id ?? getMainMenuUniqueId(),
+    subMenuIds: [],
+    addSubMenu: (subMenuId) => set((state) => ({ subMenuIds: [...state.subMenuIds, subMenuId] })),
+    removeSubMenu: (subMenuId) => set((state) => ({ subMenuIds: state.subMenuIds.filter((id) => id !== subMenuId) })),
+    isSingleList: () => {
+      const { subMenuIds } = get();
+      return subMenuIds.length <= 1;
+    },
   }));
 };
-const useCreateMainMenuItemStore = (id: string) => {
+const useCreateMainMenuItemStore = (id?: string) => {
   return useRef(createMainMenuItemStore(id)).current;
 };
 
-const MainMenuContext = createContext<UseBoundStore<StoreApi<MainMenuStore>> | null>(null);
+const MainMenuItemContext = createContext<UseBoundStore<StoreApi<MainMenuItemStore>> | null>(null);
 
-export { createMainMenuItemStore, useCreateMainMenuItemStore, MainMenuContext };
+export { createMainMenuItemStore, useCreateMainMenuItemStore, MainMenuItemContext };

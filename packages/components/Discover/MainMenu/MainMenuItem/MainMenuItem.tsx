@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 import { SubMenuItemProps } from '../SubMenuItem/SubMenuItem';
-import { getMainMenuUniqueId } from '@/utils/MainMenuUtil';
 import { useMainMenuStore } from '@/hooks/store/Discover/MainMenu/useMainMenuStore';
-import { MainMenuContext, useCreateMainMenuItemStore } from '@/hooks/store/Discover/MainMenu/useMainMenuItemStore';
+import { MainMenuItemContext, useCreateMainMenuItemStore } from '@/hooks/store/Discover/MainMenu/useMainMenuItemStore';
 import { useStore } from 'zustand';
+import './MainMenuItem.scss';
 
 interface MainMenuItemProps {
   id?: string;
@@ -12,28 +12,37 @@ interface MainMenuItemProps {
 }
 
 const MainMenuItem = ({ id, title, children }: MainMenuItemProps) => {
-  const { openedMainMenuId, toggleMainMenu } = useMainMenuStore();
-  const uniqueId = useMemo(() => id ?? getMainMenuUniqueId(), []);
-  const mainMenuStore = useCreateMainMenuItemStore(uniqueId);
-  const { hasSubMenu, setHasSubMenu } = useStore(mainMenuStore);
+  const [menuHeight, setMenuHeight] = useState(0);
+  const { toggleMainMenu, openedSubMenuId, toggleSubMenu, isMainMenuOpened } = useMainMenuStore();
+  const mainMenuItemStore = useCreateMainMenuItemStore(id);
+  const { id: uniqueId, subMenuIds, isSingleList } = useStore(mainMenuItemStore);
 
-  useEffect(() => {
-    setHasSubMenu(Array.isArray(children) && children.length > 0);
-  }, [children, setHasSubMenu]);
+  const isOpened = isMainMenuOpened(uniqueId);
 
   const handleClickMainMenu = useCallback(() => {
     toggleMainMenu?.(uniqueId);
   }, [toggleMainMenu, uniqueId]);
 
+  useLayoutEffect(() => {
+    const activeSubList = document.querySelector(`.gnb-sub-list.active`);
+    setMenuHeight(activeSubList?.scrollHeight || 0);
+  }, [openedSubMenuId]);
+
+  useEffect(() => {
+    if (isOpened) {
+      toggleSubMenu?.(subMenuIds[0]);
+    }
+  }, [subMenuIds, isOpened, toggleSubMenu]);
+
   return (
-    <MainMenuContext value={mainMenuStore}>
+    <MainMenuItemContext value={mainMenuItemStore}>
       <li>
         <button
           type="button"
-          className={`gnb-main-trigger ${openedMainMenuId === uniqueId ? 'active' : ''}`}
+          className={`gnb-main-trigger ${isOpened ? 'active' : ''}`}
           data-trigger="gnb"
           aria-controls={uniqueId}
-          aria-expanded={openedMainMenuId === uniqueId}
+          aria-expanded={isOpened}
           aria-haspopup="true"
           id={uniqueId}
           onClick={handleClickMainMenu}
@@ -41,14 +50,13 @@ const MainMenuItem = ({ id, title, children }: MainMenuItemProps) => {
           {title}
         </button>
 
-        <div className={`gnb-toggle-wrap ${openedMainMenuId === uniqueId ? 'is-open' : ''}`}>
-          <div className="gnb-main-list" data-has-submenu={hasSubMenu ? 'true' : 'false'}>
-            {hasSubMenu && <ul>{children}</ul>}
-            {!hasSubMenu && children}
+        <div className={`gnb-toggle-wrap ${isOpened ? 'is-open' : ''}`}>
+          <div className="gnb-main-list" data-has-submenu={!isSingleList()} style={{ minHeight: menuHeight }}>
+            {isSingleList() ? children : <ul>{children}</ul>}
           </div>
         </div>
       </li>
-    </MainMenuContext>
+    </MainMenuItemContext>
   );
 };
 

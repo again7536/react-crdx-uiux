@@ -1,6 +1,6 @@
 import { create, StoreApi, UseBoundStore } from 'zustand';
-import { MainMenuItemMobileProps } from '@/components/Discover/MainMenuMobile/MainMenuItemMobile/MainMenuItemMobileRenderer';
-import { SubMenuGroupMobileProps } from '@/components/Discover/MainMenuMobile/SubMenuGroupMobile/SubMenuGroupMobileRenderer';
+import type { MainMenuItemMobileProps } from '@/components/Discover/MainMenuMobile/MainMenuItemMobile/MainMenuItemMobileRenderer';
+import type { SubMenuGroupMobileProps } from '@/components/Discover/MainMenuMobile/SubMenuGroupMobile/SubMenuGroupMobileRenderer';
 import { createContext } from 'react';
 
 interface MenuMobileStore {

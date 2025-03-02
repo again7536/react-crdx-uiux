@@ -97,6 +97,15 @@ export const Default: Story = {
             <SubMenuItem variant="link" title="2Depth-bar" subtitle="2Depth subtitle #4" link="#" />
             <SubMenuItem variant="external-link" title="2Depth-bar" subtitle="2Depth subtitle #5" link="#" />
           </MainMenuItem>
+          <MainMenuItem title="메뉴 2번">
+            <SubMenuItem variant="menu" title="2Depth-bar" subtitle="2Depth subtitle #1" link="#">
+              <SubMenuContents title="3Depth-title #1" description="3Depth subtitle #1" />
+              <SubMenuContents title="3Depth-title #2" description="3Depth subtitle #2" />
+              <SubMenuContents title="3Depth-title #3" description="3Depth subtitle #3" />
+              <SubMenuContents title="3Depth-title #4" description="3Depth subtitle #4" />
+              <SubMenuContents title="3Depth-title #5" description="3Depth subtitle #5" />
+            </SubMenuItem>
+          </MainMenuItem>
         </MainMenu>
         <MainMenuMobile>
           <MainMenuItemMobile href="#mGnb-anchor1" title="1Depth">

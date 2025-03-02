@@ -2,6 +2,7 @@ import Icon from '@/components/Others/Icon/Icon';
 import { useContext } from 'react';
 import { SubMenuContext } from '@/hooks/store/Discover/MainMenu/useSubMenuItemStore';
 import { useStore } from 'zustand';
+import { MainMenuItemContext } from '@/hooks/store/Discover/MainMenu/useMainMenuItemStore';
 
 interface SubMenuContentsProps {
   title: string;
@@ -10,12 +11,14 @@ interface SubMenuContentsProps {
 }
 
 const SubMenuContents = ({ title, description, link }: SubMenuContentsProps) => {
-  const subMenuStore = useContext(SubMenuContext);
-  const { variant, isSingleList } = useStore(subMenuStore!);
+  const mainMenuItemStore = useContext(MainMenuItemContext);
+  const subMenuItemStore = useContext(SubMenuContext);
+  const { isSingleList } = useStore(mainMenuItemStore!);
+  const { variant } = useStore(subMenuItemStore!);
 
   return (
     <li>
-      {(variant === 'menu' || isSingleList) && <a href={link}>{title}</a>}
+      {(variant === 'menu' || isSingleList()) && <a href={link}>{title}</a>}
       {variant === 'menu-description' && (
         <>
           <h3 className="tit">

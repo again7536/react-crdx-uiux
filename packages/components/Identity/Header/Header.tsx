@@ -8,6 +8,8 @@ import MainMenuMobileRenderer, {
   MainMenuMobileProps,
 } from '@/components/Discover/MainMenuMobile/MainMenuMobileRenderer';
 import { useHeaderStore } from '@/hooks/store/Identity/Header/useHeaderStore';
+import Backdrop from '@/components/Others/Backdrop/Backdrop';
+import { useMainMenuStore } from '@/hooks/store/Discover/MainMenu/useMainMenuStore';
 
 interface HeaderProps {
   utilities?: React.ReactElement<HeaderUtilityProps | HeaderUtilityDropdownProps>[];
@@ -24,12 +26,17 @@ const Header = ({
   actions,
   children,
 }: HeaderProps) => {
+  const { openedMainMenuId, toggleMainMenu } = useMainMenuStore();
   const { mainMenuMobile } = useHeaderStore();
-  const { setIsOpen } = useMainMenuMobileStore();
+  const setMainMenuMobileIsOpen = useMainMenuMobileStore((store) => store.setIsOpen);
 
   const handleOpenMobileMenu = useCallback(() => {
-    setIsOpen(true);
-  }, [setIsOpen]);
+    setMainMenuMobileIsOpen(true);
+  }, [setMainMenuMobileIsOpen]);
+
+  const handleBackdropClick = useCallback(() => {
+    toggleMainMenu?.(null);
+  }, [toggleMainMenu]);
 
   return (
     <header id="krds-header">
@@ -55,10 +62,10 @@ const Header = ({
             </div>
           </div>
         </div>
-
         {children}
       </div>
       {mainMenuMobile && <MainMenuMobileRenderer {...mainMenuMobile} />}
+      <Backdrop isOpen={!!openedMainMenuId} onClick={handleBackdropClick} />
     </header>
   );
 };
