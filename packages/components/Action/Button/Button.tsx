@@ -1,5 +1,3 @@
-import { IconTypes } from '@/components/Others/Icon/Icon';
-
 type ButtonColor = 'primary' | 'secondary' | 'tertiary' | 'none';
 type ButtonSize = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
 type ButtonVariant = 'normal' | 'text' | 'icon' | 'icon-border';
@@ -11,7 +9,6 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   disabled?: boolean;
   onClick?: () => void;
   variant?: ButtonVariant;
-  icon?: IconTypes;
   screenReaderTextForIcon?: string;
 }
 
@@ -40,3 +37,4 @@ const Button = ({
 };
 
 export default Button;
+export type { ButtonProps };
