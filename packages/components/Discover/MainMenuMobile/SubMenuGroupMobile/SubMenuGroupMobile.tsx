@@ -14,12 +14,15 @@ const SubMenuGroupMobile = ({ id, title, children, className, ...props }: SubMen
   const memoizedId = useMemo(() => id ?? window.crypto.randomUUID(), [id]);
   const { addSubMenuGroup, removeSubMenuGroup } = useMainMenuMobileStore();
   const mainMenuItemStore = useContext(MainMenuItemMobileContext);
-  const { addSubMenuGroup: addSubMenuGroupToMainMenuItem, removeSubMenuGroup: removeSubMenuGroupFromMainMenuItem } =
-    useStore(mainMenuItemStore!);
+  const {
+    id: mainMenuItemId,
+    addSubMenuGroup: addSubMenuGroupToMainMenuItem,
+    removeSubMenuGroup: removeSubMenuGroupFromMainMenuItem,
+  } = useStore(mainMenuItemStore!);
 
   useEffect(() => {
-    addSubMenuGroup({ id: memoizedId, title, children, className, ...props });
-    addSubMenuGroupToMainMenuItem({ id: memoizedId, title, children, className, ...props });
+    addSubMenuGroup({ id: memoizedId, title, children, className, mainMenuItemId, ...props });
+    addSubMenuGroupToMainMenuItem({ id: memoizedId, title, children, className, mainMenuItemId, ...props });
     return () => {
       removeSubMenuGroup(memoizedId);
       removeSubMenuGroupFromMainMenuItem();

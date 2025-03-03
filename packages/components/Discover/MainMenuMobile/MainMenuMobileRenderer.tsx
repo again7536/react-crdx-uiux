@@ -4,16 +4,43 @@ import MainMenuItemMobileRenderer from './MainMenuItemMobile/MainMenuItemMobileR
 import SubMenuGroupMobileRenderer from './SubMenuGroupMobile/SubMenuGroupMobileRenderer';
 import { MainMenuMobileProps } from './MainMenuMobile';
 import { useMainMenuMobileStore } from '@/hooks/store/Discover/MainMenuMobile/useMainMenuMobileStore';
+import TextInput from '@/components/Input/TextInput/TextInput';
+import { useEffect, useState } from 'react';
+import useWindowSize from '@/hooks/useWindowSize';
 
 const MainMenuMobileRenderer = ({ children, utilities, bottomLinks, className, ...props }: MainMenuMobileProps) => {
-  const { mainMenuItems, subMenuGroups, isOpen, setIsOpen } = useMainMenuMobileStore();
+  const windowSize = useWindowSize();
+  const [localSearchValue, setLocalSearchValue] = useState('');
+  const { mainMenuItems, subMenuGroups, isOpen, setIsOpen, setSearchValue } = useMainMenuMobileStore();
 
   const handleClose = () => {
     setIsOpen(false);
   };
 
+  const handleSearch = () => {
+    setSearchValue(localSearchValue);
+  };
+
+  const handleBlankClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    const target = event.target as HTMLElement;
+    if (!target.closest('.gnb-wrap')) {
+      target.querySelector<HTMLDivElement>('.gnb-wrap')?.focus();
+    }
+  };
+
+  useEffect(() => {
+    if (windowSize === 'pc') {
+      setIsOpen(false);
+    }
+  }, [windowSize, setIsOpen]);
+
   return (
-    <div {...props} id="mobile-nav" className={`krds-main-menu-mobile ${isOpen ? 'is-open' : ''} ${className}`}>
+    <div
+      {...props}
+      id="mobile-nav"
+      className={`krds-main-menu-mobile ${isOpen ? 'is-open' : ''} ${className}`}
+      onClick={handleBlankClick}
+    >
       {children}
       <div className="gnb-wrap">
         <div className="gnb-header">
@@ -43,23 +70,25 @@ const MainMenuMobileRenderer = ({ children, utilities, bottomLinks, className, .
           </div>
 
           <div className="sch-input">
-            <input
-              type="text"
-              className="krds-input"
+            <TextInput
               placeholder="찾고자 하는 메뉴명을 입력해 주세요"
               title="찾고자 하는 메뉴명 입력"
+              className="krds-input"
+              value={localSearchValue}
+              onChange={(e) => setLocalSearchValue(e.target.value)}
+              buttons={
+                <Button type="button" variant="icon" screenReaderTextForIcon="검색" onClick={handleSearch}>
+                  <Icon name="sch" />
+                </Button>
+              }
             />
-            <button type="button" className="krds-btn medium icon ico-search">
-              <span className="sr-only">검색</span>
-              <i className="svg-icon ico-sch"></i>
-            </button>
           </div>
         </div>
 
         <div className="gnb-body">
           <div className="gnb-menu">
             <div className="menu-wrap">
-              <ul>
+              <ul role="tablist">
                 {mainMenuItems.map((item) => (
                   <MainMenuItemMobileRenderer key={item.id} {...item} />
                 ))}

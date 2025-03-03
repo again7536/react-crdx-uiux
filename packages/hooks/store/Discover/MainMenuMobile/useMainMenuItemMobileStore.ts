@@ -1,10 +1,10 @@
 import { create, StoreApi, UseBoundStore } from 'zustand';
-import type { SubMenuGroupMobileProps } from '@/components/Discover/MainMenuMobile/SubMenuGroupMobile/SubMenuGroupMobile';
+import type { SubMenuGroupMobileRendererProps } from '@/components/Discover/MainMenuMobile/SubMenuGroupMobile/SubMenuGroupMobileRenderer';
 import { createContext, useRef } from 'react';
 interface MainMenuItemMobileStore {
   id: string;
-  subMenuGroup: SubMenuGroupMobileProps | null;
-  addSubMenuGroup: (subMenuGroup: SubMenuGroupMobileProps) => void;
+  subMenuGroup: SubMenuGroupMobileRendererProps | null;
+  addSubMenuGroup: (subMenuGroup: SubMenuGroupMobileRendererProps) => void;
   removeSubMenuGroup: () => void;
 }
 

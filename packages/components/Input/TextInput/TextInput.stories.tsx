@@ -1,8 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import TextInput from './TextInput';
-import Button from '@/components/Action/Button/Button';
-import Icon from '@/components/Others/Icon/Icon';
 
 export default {
   title: 'Input/TextInput',

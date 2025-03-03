@@ -17,18 +17,26 @@ const MainMenuItemMobile = ({ children, className, id, ...props }: MainMenuItemM
   const mainMenuItemStore = useCreateMainMenuItemMobileStore(memoizedId);
   const { subMenuGroup } = useStore(mainMenuItemStore);
 
+  const { activeMainMenuItemId, setActiveMainMenuItemId } = useMainMenuMobileStore();
+
   useEffect(() => {
+    const handleClick = () => {
+      setActiveMainMenuItemId(memoizedId);
+    };
+
     addMainMenuItem({
+      ...props,
       id: memoizedId,
       href: props.href ?? `#${subMenuGroup?.id}`, // anchor submenu group to main menu item
       className,
-      ...props,
+      activeMainMenuItemId,
+      onClick: handleClick,
     });
 
     return () => {
       removeMainMenuItem(memoizedId);
     };
-  }, [memoizedId, className, children, ...Object.values(props), subMenuGroup?.id]);
+  }, [memoizedId, className, children, ...Object.values(props), subMenuGroup?.id, activeMainMenuItemId]);
 
   return <MainMenuItemMobileContext value={mainMenuItemStore}>{children}</MainMenuItemMobileContext>;
 };

@@ -4,6 +4,8 @@ import { HeaderUtilityProps } from '@/components/Identity/Header/HeaderUtility/H
 import { LinkProps } from '@/components/Action/Link/Link';
 import { useHeaderStore } from '@/hooks/store/Identity/Header/useHeaderStore';
 import { useEffect } from 'react';
+import useWindowSize from '@/hooks/useWindowSize';
+import { useMainMenuMobileStore } from '@/hooks/store/Discover/MainMenuMobile/useMainMenuMobileStore';
 type MainMenuMobileChild = React.ReactElement<MainMenuItemMobileProps> | React.ReactElement<SubMenuGroupMobileProps>;
 
 interface MainMenuMobileProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -22,13 +24,11 @@ const MainMenuMobile = ({ children, utilities, bottomLinks, ...props }: MainMenu
       bottomLinks,
       ...props,
     });
-  }, [children, utilities, bottomLinks, addMainMenuMobile, ...Object.values(props)]);
 
-  useEffect(() => {
     return () => {
       removeMainMenuMobile();
     };
-  }, [removeMainMenuMobile]);
+  }, [children, utilities, bottomLinks, addMainMenuMobile, ...Object.values(props)]);
 
   return null;
 };

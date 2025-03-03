@@ -3,7 +3,7 @@ import Icon from '@/components/Others/Icon/Icon';
 import { InputHTMLAttributes, useState } from 'react';
 
 interface TextInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
-  label: string;
+  label?: string;
   hint?: string;
   status?: 'error' | 'success' | 'information' | 'none';
   size?: 'small' | 'medium' | 'large';
@@ -33,9 +33,11 @@ const TextInput = ({
 
   return (
     <div className="form-group">
-      <div className="form-tit">
-        <label htmlFor={id}>{label}</label>
-      </div>
+      {label && (
+        <div className="form-tit">
+          <label htmlFor={id}>{label}</label>
+        </div>
+      )}
       <div className={`form-conts is-${status} ${hasButtons ? 'btn-ico-wrap' : ''}`} data-delete={!!onDelete}>
         <input {...props} id={id} type={realType} className={`krds-input ${size}`} />
         <div className="btn-group">
