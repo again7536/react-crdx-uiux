@@ -1,3 +1,5 @@
+import React from 'react';
+
 interface Depth4MenuItemMobileProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   children: string;
 }
@@ -10,5 +12,5 @@ const Depth4MenuItemMobile = ({ children, ...props }: Depth4MenuItemMobileProps)
   );
 };
 
-export default Depth4MenuItemMobile;
+export default React.memo(Depth4MenuItemMobile);
 export type { Depth4MenuItemMobileProps };

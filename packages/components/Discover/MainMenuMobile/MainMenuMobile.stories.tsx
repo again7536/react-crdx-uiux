@@ -86,11 +86,11 @@ export const Primary: Story = {
     ],
   },
   render: (args) => {
-    const { setIsOpen } = useMainMenuMobileStore();
+    const { handleOpen } = useMainMenuMobileStore();
 
     return (
       <>
-        <Button onClick={() => setIsOpen(true)}>Open</Button>
+        <Button onClick={handleOpen}>Open</Button>
         <MainMenuMobile {...args} />
       </>
     );

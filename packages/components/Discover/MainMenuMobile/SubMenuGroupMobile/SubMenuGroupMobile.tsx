@@ -27,7 +27,7 @@ const SubMenuGroupMobile = ({ id, title, children, className, ...props }: SubMen
       removeSubMenuGroup(memoizedId);
       removeSubMenuGroupFromMainMenuItem();
     };
-  }, [memoizedId, title, className, children, ...Object.values(props)]);
+  }, [memoizedId, title, className, children, JSON.stringify(props)]);
 
   return null;
 };

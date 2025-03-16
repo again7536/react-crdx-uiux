@@ -1,14 +1,16 @@
 import Button from '@/components/Action/Button/Button';
 import Icon from '@/components/Others/Icon/Icon';
-import { useCallback, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { useMainMenuMobileStore } from '@/hooks/store/Discover/MainMenuMobile/useMainMenuMobileStore';
+import useFocusTrap from '@/hooks/useFocusTrap';
 interface Depth3MenuItemMobileProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   title: string;
   children?: React.ReactElement<Depth3MenuItemMobileProps>[] | React.ReactElement<Depth3MenuItemMobileProps>;
 }
 
 const Depth3MenuItemMobile = ({ title, children, className, ...props }: Depth3MenuItemMobileProps) => {
-  const setMainMenuMobileIsOpen = useMainMenuMobileStore((store) => store.setIsOpen);
+  const ref = useRef<HTMLDivElement>(null);
+  const handleMainMenuMobileClose = useMainMenuMobileStore((store) => store.handleClose);
 
   const [isOpen, setIsOpen] = useState(false);
   const hasDepth4 = (Array.isArray(children) && children.length > 0) || (!Array.isArray(children) && children);
@@ -18,13 +20,15 @@ const Depth3MenuItemMobile = ({ title, children, className, ...props }: Depth3Me
   }, []);
 
   const handleClose = useCallback(() => {
-    setMainMenuMobileIsOpen(false);
+    handleMainMenuMobileClose();
     setIsOpen(false);
-  }, [setMainMenuMobileIsOpen]);
+  }, [handleMainMenuMobileClose]);
 
   const handleGoBack = useCallback(() => {
     setIsOpen(false);
   }, []);
+
+  useFocusTrap(ref.current!);
 
   return (
     <li>
@@ -32,7 +36,7 @@ const Depth3MenuItemMobile = ({ title, children, className, ...props }: Depth3Me
         {title}
       </a>
       {hasDepth4 && (
-        <div className={`depth4-wrap ${isOpen ? 'is-open' : ''}`}>
+        <div ref={ref} className={`depth4-wrap ${isOpen ? 'is-open' : ''}`}>
           <div className="depth4-head">
             <Button variant="icon" color="none" screenReaderTextForIcon="이전화면" onClick={handleGoBack}>
               <Icon name="angle left" />
@@ -51,5 +55,5 @@ const Depth3MenuItemMobile = ({ title, children, className, ...props }: Depth3Me
   );
 };
 
-export default Depth3MenuItemMobile;
+export default React.memo(Depth3MenuItemMobile);
 export type { Depth3MenuItemMobileProps };

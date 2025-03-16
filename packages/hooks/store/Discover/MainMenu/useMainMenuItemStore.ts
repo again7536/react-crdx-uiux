@@ -1,4 +1,4 @@
-import { getMainMenuUniqueId } from '@/utils/MainMenuUtil';
+import { getMainMenuUniqueId } from '@/utils/mainMenuUtil';
 import { createContext, useRef } from 'react';
 import { create, StoreApi, UseBoundStore } from 'zustand';
 

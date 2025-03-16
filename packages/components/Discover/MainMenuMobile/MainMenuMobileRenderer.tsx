@@ -5,17 +5,16 @@ import SubMenuGroupMobileRenderer from './SubMenuGroupMobile/SubMenuGroupMobileR
 import { MainMenuMobileProps } from './MainMenuMobile';
 import { useMainMenuMobileStore } from '@/hooks/store/Discover/MainMenuMobile/useMainMenuMobileStore';
 import TextInput from '@/components/Input/TextInput/TextInput';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import useWindowSize from '@/hooks/useWindowSize';
+import useFocusTrap from '@/hooks/useFocusTrap';
 
 const MainMenuMobileRenderer = ({ children, utilities, bottomLinks, className, ...props }: MainMenuMobileProps) => {
+  const mobileNavRef = useRef<HTMLDivElement>(null);
   const windowSize = useWindowSize();
   const [localSearchValue, setLocalSearchValue] = useState('');
-  const { mainMenuItems, subMenuGroups, isOpen, setIsOpen, setSearchValue } = useMainMenuMobileStore();
-
-  const handleClose = () => {
-    setIsOpen(false);
-  };
+  const { mainMenuItems, subMenuGroups, isOpen, handleClose, setSearchValue, handleTransitionDone } =
+    useMainMenuMobileStore();
 
   const handleSearch = () => {
     setSearchValue(localSearchValue);
@@ -30,16 +29,20 @@ const MainMenuMobileRenderer = ({ children, utilities, bottomLinks, className, .
 
   useEffect(() => {
     if (windowSize === 'pc') {
-      setIsOpen(false);
+      handleClose();
     }
-  }, [windowSize, setIsOpen]);
+  }, [windowSize]);
+
+  useFocusTrap(mobileNavRef.current!);
 
   return (
     <div
       {...props}
       id="mobile-nav"
-      className={`krds-main-menu-mobile ${isOpen ? 'is-open' : ''} ${className}`}
+      className={`krds-main-menu-mobile ${isOpen ? 'is-open is-backdrop' : ''} ${className}`}
       onClick={handleBlankClick}
+      onTransitionEnd={handleTransitionDone}
+      ref={mobileNavRef}
     >
       {children}
       <div className="gnb-wrap">
@@ -120,5 +123,5 @@ const MainMenuMobileRenderer = ({ children, utilities, bottomLinks, className, .
   );
 };
 
-export default MainMenuMobileRenderer;
+export default React.memo(MainMenuMobileRenderer);
 export type { MainMenuMobileProps };

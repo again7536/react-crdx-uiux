@@ -2,7 +2,7 @@ import Button from '@/components/Action/Button/Button';
 import Link from '@/components/Action/Link/Link';
 import Icon from '@/components/Others/Icon/Icon';
 import { useCallback, useContext, useEffect, useMemo } from 'react';
-import { getSubMenuUniqueId } from '@/utils/MainMenuUtil';
+import { getSubMenuUniqueId } from '@/utils/mainMenuUtil';
 import { useMainMenuStore } from '@/hooks/store/Discover/MainMenu/useMainMenuStore';
 import { MainMenuItemContext } from '@/hooks/store/Discover/MainMenu/useMainMenuItemStore';
 import { SubMenuContentsProps } from '../SubMenuContents/SubMenuContents';

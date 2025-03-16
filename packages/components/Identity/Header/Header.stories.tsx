@@ -114,7 +114,7 @@ export const Default: Story = {
                 <Depth3MenuItemMobile title="3Depth" />
                 <Depth3MenuItemMobile title="3Depth" />
                 <Depth3MenuItemMobile title="3Depth">
-                  <Depth4MenuItemMobile>4Depth</Depth4MenuItemMobile>
+                  <Depth4MenuItemMobile href="#">4Depth</Depth4MenuItemMobile>
                 </Depth3MenuItemMobile>
               </SubMenuItemMobile>
               <SubMenuItemMobile title="2Depth" />
@@ -129,7 +129,7 @@ export const Default: Story = {
                 <Depth3MenuItemMobile title="3Depth" />
                 <Depth3MenuItemMobile title="3Depth" />
                 <Depth3MenuItemMobile title="3Depth">
-                  <Depth4MenuItemMobile>4Depth</Depth4MenuItemMobile>
+                  <Depth4MenuItemMobile href="#">4Depth</Depth4MenuItemMobile>
                 </Depth3MenuItemMobile>
               </SubMenuItemMobile>
               <SubMenuItemMobile title="2Depth" />
@@ -144,7 +144,7 @@ export const Default: Story = {
                 <Depth3MenuItemMobile title="3Depth" />
                 <Depth3MenuItemMobile title="3Depth" />
                 <Depth3MenuItemMobile title="3Depth">
-                  <Depth4MenuItemMobile>4Depth</Depth4MenuItemMobile>
+                  <Depth4MenuItemMobile href="#">4Depth</Depth4MenuItemMobile>
                 </Depth3MenuItemMobile>
               </SubMenuItemMobile>
               <SubMenuItemMobile title="2Depth" />

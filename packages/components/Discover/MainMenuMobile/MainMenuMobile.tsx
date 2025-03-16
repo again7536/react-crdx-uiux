@@ -3,9 +3,7 @@ import { SubMenuGroupMobileProps } from './SubMenuGroupMobile/SubMenuGroupMobile
 import { HeaderUtilityProps } from '@/components/Identity/Header/HeaderUtility/HeaderUtility';
 import { LinkProps } from '@/components/Action/Link/Link';
 import { useHeaderStore } from '@/hooks/store/Identity/Header/useHeaderStore';
-import { useEffect } from 'react';
-import useWindowSize from '@/hooks/useWindowSize';
-import { useMainMenuMobileStore } from '@/hooks/store/Discover/MainMenuMobile/useMainMenuMobileStore';
+import React, { useEffect } from 'react';
 type MainMenuMobileChild = React.ReactElement<MainMenuItemMobileProps> | React.ReactElement<SubMenuGroupMobileProps>;
 
 interface MainMenuMobileProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -28,10 +26,10 @@ const MainMenuMobile = ({ children, utilities, bottomLinks, ...props }: MainMenu
     return () => {
       removeMainMenuMobile();
     };
-  }, [children, utilities, bottomLinks, addMainMenuMobile, ...Object.values(props)]);
+  }, [children, utilities, bottomLinks, addMainMenuMobile, JSON.stringify(props)]);
 
   return null;
 };
 
-export default MainMenuMobile;
+export default React.memo(MainMenuMobile);
 export type { MainMenuMobileProps };

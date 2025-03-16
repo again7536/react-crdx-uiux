@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { useMainMenuMobileStore } from '@/hooks/store/Discover/MainMenuMobile/useMainMenuMobileStore';
 import {
   useCreateMainMenuItemMobileStore,
@@ -13,17 +13,16 @@ interface MainMenuItemMobileProps extends React.AnchorHTMLAttributes<HTMLAnchorE
 // NOTE. This component delegates rendering to MainMenuItemMobileRenderer.
 const MainMenuItemMobile = ({ children, className, id, ...props }: MainMenuItemMobileProps) => {
   const memoizedId = useMemo(() => id ?? window.crypto.randomUUID(), [id]);
-  const { addMainMenuItem, removeMainMenuItem } = useMainMenuMobileStore();
+  const { addMainMenuItem, removeMainMenuItem, activeMainMenuItemId, setActiveMainMenuItemId } =
+    useMainMenuMobileStore();
   const mainMenuItemStore = useCreateMainMenuItemMobileStore(memoizedId);
   const { subMenuGroup } = useStore(mainMenuItemStore);
 
-  const { activeMainMenuItemId, setActiveMainMenuItemId } = useMainMenuMobileStore();
+  const handleClick = useCallback(() => {
+    setActiveMainMenuItemId(memoizedId);
+  }, [memoizedId, setActiveMainMenuItemId]);
 
   useEffect(() => {
-    const handleClick = () => {
-      setActiveMainMenuItemId(memoizedId);
-    };
-
     addMainMenuItem({
       ...props,
       id: memoizedId,
@@ -36,7 +35,7 @@ const MainMenuItemMobile = ({ children, className, id, ...props }: MainMenuItemM
     return () => {
       removeMainMenuItem(memoizedId);
     };
-  }, [memoizedId, className, children, ...Object.values(props), subMenuGroup?.id, activeMainMenuItemId]);
+  }, [memoizedId, className, subMenuGroup?.id, activeMainMenuItemId, handleClick, JSON.stringify(props)]);
 
   return <MainMenuItemMobileContext value={mainMenuItemStore}>{children}</MainMenuItemMobileContext>;
 };

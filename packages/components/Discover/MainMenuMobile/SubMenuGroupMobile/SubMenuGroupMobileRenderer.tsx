@@ -1,7 +1,7 @@
-import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import { SubMenuGroupMobileProps } from './SubMenuGroupMobile';
-import { useCallback, useEffect, useMemo, useRef } from 'react';
+import React, { useRef, useCallback, useMemo } from 'react';
 import { useMainMenuMobileStore } from '@/hooks/store/Discover/MainMenuMobile/useMainMenuMobileStore';
+import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 
 interface SubMenuGroupMobileRendererProps extends SubMenuGroupMobileProps {
   mainMenuItemId: string;
@@ -14,25 +14,41 @@ const SubMenuGroupMobileRenderer = ({
   mainMenuItemId,
   ...props
 }: SubMenuGroupMobileRendererProps) => {
+  const prevIntersectionYRef = useRef<number>(0);
   const ref = useRef<HTMLDivElement>(null);
-  const { setActiveMainMenuItemId } = useMainMenuMobileStore();
+  const { isOpen, setActivePrevMainMenuItem, setActiveNextMainMenuItem, setActiveMainMenuItemId } =
+    useMainMenuMobileStore();
 
-  useEffect(() => {
-    const gnbBody = document.querySelector<HTMLDivElement>('.gnb-body')!;
-    const handleScroll = () => {
-      if (
-        gnbBody.scrollTop >= ref.current!.offsetTop ||
-        gnbBody.clientHeight + gnbBody.scrollTop >= gnbBody.scrollHeight
-      ) {
+  const onIntersect = useCallback(
+    (entries: IntersectionObserverEntry[]) => {
+      if (!isOpen) return;
+
+      const currentIntersectionY = entries[0].boundingClientRect.y;
+      const prevIntersectionY = prevIntersectionYRef.current;
+
+      if (entries[0].isIntersecting) {
         setActiveMainMenuItemId(mainMenuItemId);
+      } else if (currentIntersectionY > prevIntersectionY) {
+        setActivePrevMainMenuItem(mainMenuItemId);
+      } else if (currentIntersectionY < prevIntersectionY) {
+        setActiveNextMainMenuItem(mainMenuItemId);
       }
-    };
-    gnbBody.addEventListener('scroll', handleScroll);
 
-    return () => {
-      gnbBody.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+      prevIntersectionYRef.current = entries[0].boundingClientRect.y;
+    },
+    [isOpen, mainMenuItemId, setActivePrevMainMenuItem, setActiveNextMainMenuItem],
+  );
+
+  const intersectionOptions = useMemo(
+    () => ({
+      root: document.querySelector<HTMLDivElement>('.gnb-body')!,
+      rootMargin: '0px',
+      threshold: [1.0],
+    }),
+    [],
+  );
+
+  useIntersectionObserver(ref.current!, onIntersect, intersectionOptions);
 
   return (
     <div {...props} className={`gnb-sub-list ${className}`} role="tabpanel" ref={ref} aria-labelledby={mainMenuItemId}>
@@ -42,5 +58,5 @@ const SubMenuGroupMobileRenderer = ({
   );
 };
 
-export default SubMenuGroupMobileRenderer;
+export default React.memo(SubMenuGroupMobileRenderer);
 export type { SubMenuGroupMobileRendererProps };
