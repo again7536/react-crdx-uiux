@@ -7,6 +7,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import useFocusTrap from '@/hooks/useFocusTrap';
 import useWindowSize from '@/hooks/useWindowSize';
+import TextInput from '@/components/Input/TextInput/TextInput';
 
 const MainMenuMobileRendererType2 = ({
   utilities,
@@ -14,14 +15,26 @@ const MainMenuMobileRendererType2 = ({
   className,
   ...props
 }: Omit<MainMenuMobileProps, 'children'>) => {
-  const { subMenuGroups, isOpen, handleClose, handleTransitionDone } = useMainMenuMobileStore();
+  const { subMenuGroups, isOpen, handleClose, handleTransitionDone, setSearchValue } = useMainMenuMobileStore();
   const menuWrapObserverRef = useRef<HTMLDivElement>(null);
   const mobileNavRef = useRef<HTMLDivElement>(null);
   const tabNavRef = useRef<HTMLDivElement>(null);
-  const tabNavTransitionTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const tabNavTransitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isNavTransition, setIsNavTransition] = useState(false);
+  const [localSearchValue, setLocalSearchValue] = useState('');
   const windowSize = useWindowSize();
+
+  const handleBlankClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    const target = event.target as HTMLElement;
+    if (!target.closest('.gnb-wrap')) {
+      target.querySelector<HTMLDivElement>('.gnb-wrap')?.focus();
+    }
+  };
+
+  const handleSearch = () => {
+    setSearchValue(localSearchValue);
+  };
 
   const handleIntersect = useCallback(
     (entries: IntersectionObserverEntry[]) => {
@@ -58,6 +71,7 @@ const MainMenuMobileRendererType2 = ({
       {...props}
       id="mobile-nav"
       className={`krds-main-menu-mobile ${isOpen ? 'is-open is-backdrop' : ''} ${className}`}
+      onClick={handleBlankClick}
       onTransitionEnd={handleTransitionDone}
       ref={mobileNavRef}
     >
@@ -68,9 +82,9 @@ const MainMenuMobileRendererType2 = ({
           </div>
 
           <div className="gnb-login">
-            <button type="button" className="krds-btn large text">
-              <i className="svg-icon ico-log"></i> 로그인을 해주세요
-            </button>
+            <Button type="button" className="large text">
+              <Icon name="log" /> 로그인을 해주세요
+            </Button>
           </div>
 
           <div
@@ -83,16 +97,24 @@ const MainMenuMobileRendererType2 = ({
             ref={tabNavRef}
           >
             <div className="sch-input">
-              <input
-                type="text"
-                className="krds-input"
+              <TextInput
                 placeholder="찾고자 하는 메뉴명을 입력해 주세요"
                 title="찾고자 하는 메뉴명 입력"
+                className="krds-input"
+                value={localSearchValue}
+                onChange={(e) => setLocalSearchValue(e.target.value)}
+                buttons={
+                  <Button
+                    type="button"
+                    variant="icon"
+                    color="none"
+                    screenReaderTextForIcon="검색"
+                    onClick={handleSearch}
+                  >
+                    <Icon name="sch" />
+                  </Button>
+                }
               />
-              <button type="button" className="krds-btn medium icon ico-search">
-                <span className="sr-only">검색</span>
-                <i className="svg-icon ico-sch"></i>
-              </button>
             </div>
 
             <div className="menu-wrap">
@@ -113,11 +135,11 @@ const MainMenuMobileRendererType2 = ({
                     </li>
                   );
                 })}
-                <li role="none">
+                {/* <li role="none">
                   <a href="#" className="gnb-main-trigger" role="tab" aria-selected="false" aria-controls="" id="tab-5">
                     단순링크
                   </a>
-                </li>
+                </li> */}
               </ul>
             </div>
           </div>
@@ -133,7 +155,6 @@ const MainMenuMobileRendererType2 = ({
               ))}
             </div>
           </div>
-
           <div className="gnb-bottom">{bottomLinks}</div>
         </div>
 

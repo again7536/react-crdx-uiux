@@ -72,7 +72,7 @@ const MainMenuMobileRendererType1 = ({
               value={localSearchValue}
               onChange={(e) => setLocalSearchValue(e.target.value)}
               buttons={
-                <Button type="button" variant="icon" screenReaderTextForIcon="검색" onClick={handleSearch}>
+                <Button type="button" variant="icon" color="none" screenReaderTextForIcon="검색" onClick={handleSearch}>
                   <Icon name="sch" />
                 </Button>
               }
@@ -95,7 +95,6 @@ const MainMenuMobileRendererType1 = ({
               ))}
             </div>
           </div>
-
           <div className="gnb-bottom">{bottomLinks}</div>
         </div>
 

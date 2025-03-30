@@ -7,6 +7,7 @@ const useIntersectionObserver = (
 ) => {
   useEffect(() => {
     if (!target) return;
+    // console.log(target, callback, options);
 
     const observer = new IntersectionObserver(callback, options);
     observer.observe(target);

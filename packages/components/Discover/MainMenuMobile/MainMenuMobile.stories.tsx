@@ -178,7 +178,7 @@ export const Type2: Story = {
       <>
         <Button onClick={handleOpen}>Open</Button>
         <MainMenuMobile {...args} />
-        <MainMenuMobileRenderManager {...mainMenuMobile} />
+        {<MainMenuMobileRenderManager {...mainMenuMobile} />}
       </>
     );
   },

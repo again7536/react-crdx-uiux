@@ -61,6 +61,7 @@ const useMainMenuMobileStore = create<MenuMobileStore>((set, get) => ({
   removeMainMenuItem: (id) => set((state) => ({ mainMenuItems: state.mainMenuItems.filter((i) => i.id !== id) })),
   removeSubMenuGroup: (id) => set((state) => ({ subMenuGroups: state.subMenuGroups.filter((i) => i.id !== id) })),
   setSearchValue: (searchValue) => set({ searchValue }),
+
   setActivePrevMainMenuItem: (id) => {
     const index = get().mainMenuItems.findIndex((item) => item.id === id);
     if (index <= 0) return;

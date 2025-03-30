@@ -16,11 +16,11 @@ const SubMenuGroupMobileRenderer = ({
   ...props
 }: SubMenuGroupMobileRendererProps) => {
   const prevIntersectionYRef = useRef<number>(0);
-  const gnbSubListref = useRef<HTMLDivElement>(null);
+  const gnbSubListRef = useRef<HTMLDivElement>(null);
   const { isOpen, setActivePrevMainMenuItem, setActiveNextMainMenuItem, setActiveMainMenuItemId } =
     useMainMenuMobileStore();
 
-  const onIntersect = useCallback(
+  const handleIntersect = useCallback(
     (entries: IntersectionObserverEntry[]) => {
       if (!isOpen) return;
 
@@ -37,26 +37,26 @@ const SubMenuGroupMobileRenderer = ({
 
       prevIntersectionYRef.current = entries[0].boundingClientRect.y;
     },
-    [isOpen, mainMenuItemId, setActivePrevMainMenuItem, setActiveNextMainMenuItem],
+    [isOpen, mainMenuItemId],
   );
 
   const intersectionOptions = useMemo(
     () => ({
-      root: document.querySelector<HTMLDivElement>('.gnb-body')!,
+      root: gnbSubListRef.current?.parentElement?.parentElement,
       rootMargin: '0px',
       threshold: [1.0],
     }),
     [],
   );
 
-  useIntersectionObserver(gnbSubListref.current!, onIntersect, intersectionOptions);
+  useIntersectionObserver(gnbSubListRef.current!, handleIntersect, intersectionOptions);
 
   return (
     <div
       {...props}
       className={`gnb-sub-list ${className}`}
       role="tabpanel"
-      ref={gnbSubListref}
+      ref={gnbSubListRef}
       aria-labelledby={mainMenuItemId}
     >
       <h2 className="sub-title">{title}</h2>
