@@ -5,6 +5,7 @@ import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 
 interface SubMenuGroupMobileRendererProps extends SubMenuGroupMobileProps {
   mainMenuItemId: string;
+  ref?: React.RefObject<HTMLDivElement | null>;
 }
 
 const SubMenuGroupMobileRenderer = ({
@@ -15,7 +16,7 @@ const SubMenuGroupMobileRenderer = ({
   ...props
 }: SubMenuGroupMobileRendererProps) => {
   const prevIntersectionYRef = useRef<number>(0);
-  const ref = useRef<HTMLDivElement>(null);
+  const gnbSubListref = useRef<HTMLDivElement>(null);
   const { isOpen, setActivePrevMainMenuItem, setActiveNextMainMenuItem, setActiveMainMenuItemId } =
     useMainMenuMobileStore();
 
@@ -48,10 +49,16 @@ const SubMenuGroupMobileRenderer = ({
     [],
   );
 
-  useIntersectionObserver(ref.current!, onIntersect, intersectionOptions);
+  useIntersectionObserver(gnbSubListref.current!, onIntersect, intersectionOptions);
 
   return (
-    <div {...props} className={`gnb-sub-list ${className}`} role="tabpanel" ref={ref} aria-labelledby={mainMenuItemId}>
+    <div
+      {...props}
+      className={`gnb-sub-list ${className}`}
+      role="tabpanel"
+      ref={gnbSubListref}
+      aria-labelledby={mainMenuItemId}
+    >
       <h2 className="sub-title">{title}</h2>
       <ul>{children}</ul>
     </div>

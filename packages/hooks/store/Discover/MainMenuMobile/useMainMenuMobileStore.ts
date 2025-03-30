@@ -25,19 +25,19 @@ interface MenuMobileStore {
 
 const useMainMenuMobileStore = create<MenuMobileStore>((set, get) => ({
   isOpen: false,
-  isTransitionDone: false,
+  isTransitionDone: true,
   activeMainMenuItemId: null,
   mainMenuItems: [],
   subMenuGroups: [],
   searchValue: '',
   handleOpen: () => {
     setTimeout(() => {
-      set({ isOpen: true });
+      set({ isOpen: true, isTransitionDone: false });
       document.body.classList.add('is-gnb-mobile');
     }, 100);
   },
   handleClose: () => {
-    set({ isOpen: false });
+    set({ isOpen: false, activeMainMenuItemId: null });
     setTimeout(() => {
       document.body.classList.remove('is-gnb-mobile');
       set({ isTransitionDone: false });

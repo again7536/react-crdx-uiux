@@ -1,7 +1,6 @@
 import Button from '@/components/Action/Button/Button';
 import Icon from '@/components/Others/Icon/Icon';
 import React, { useCallback, useRef, useState } from 'react';
-import { useMainMenuMobileStore } from '@/hooks/store/Discover/MainMenuMobile/useMainMenuMobileStore';
 import useFocusTrap from '@/hooks/useFocusTrap';
 interface Depth3MenuItemMobileProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   title: string;
@@ -10,35 +9,36 @@ interface Depth3MenuItemMobileProps extends React.AnchorHTMLAttributes<HTMLAncho
 
 const Depth3MenuItemMobile = ({ title, children, className, ...props }: Depth3MenuItemMobileProps) => {
   const ref = useRef<HTMLDivElement>(null);
-  const handleMainMenuMobileClose = useMainMenuMobileStore((store) => store.handleClose);
 
   const [isOpen, setIsOpen] = useState(false);
+  const [isDisplayNone, setIsDisplayNone] = useState(true);
   const hasDepth4 = (Array.isArray(children) && children.length > 0) || (!Array.isArray(children) && children);
 
-  const handleClick = useCallback(() => {
-    setIsOpen((prev) => !prev);
+  const handleOpen = useCallback(() => {
+    setIsDisplayNone(false);
+    setTimeout(() => setIsOpen(true), 0);
   }, []);
 
   const handleClose = useCallback(() => {
-    handleMainMenuMobileClose();
     setIsOpen(false);
-  }, [handleMainMenuMobileClose]);
-
-  const handleGoBack = useCallback(() => {
-    setIsOpen(false);
+    setTimeout(() => setIsDisplayNone(true), 400);
   }, []);
 
   useFocusTrap(ref.current!);
 
   return (
     <li>
-      <a {...props} className={`depth3-trigger ${hasDepth4 ? 'has-depth4' : ''} ${className}`} onClick={handleClick}>
+      <a {...props} className={`depth3-trigger ${hasDepth4 ? 'has-depth4' : ''} ${className}`} onClick={handleOpen}>
         {title}
       </a>
       {hasDepth4 && (
-        <div ref={ref} className={`depth4-wrap ${isOpen ? 'is-open' : ''}`}>
+        <div
+          ref={ref}
+          className={`depth4-wrap ${isOpen ? 'is-open' : ''}`}
+          style={{ ...props.style, display: isDisplayNone ? 'none' : 'block' }}
+        >
           <div className="depth4-head">
-            <Button variant="icon" color="none" screenReaderTextForIcon="이전화면" onClick={handleGoBack}>
+            <Button variant="icon" color="none" screenReaderTextForIcon="이전화면" onClick={handleClose}>
               <Icon name="angle left" />
             </Button>
             <Button variant="icon" color="none" screenReaderTextForIcon="전체메뉴 닫기" onClick={handleClose}>

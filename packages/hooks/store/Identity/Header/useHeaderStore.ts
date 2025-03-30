@@ -3,8 +3,8 @@ import { createContext } from 'react';
 import type { MainMenuMobileProps } from '@/components/Discover/MainMenuMobile/MainMenuMobile';
 
 interface HeaderStore {
-  mainMenuMobile: MainMenuMobileProps | null;
-  addMainMenuMobile: (item: MainMenuMobileProps) => void;
+  mainMenuMobile: Omit<MainMenuMobileProps, 'children'> | null;
+  addMainMenuMobile: (item: Omit<MainMenuMobileProps, 'children'>) => void;
   removeMainMenuMobile: () => void;
 }
 

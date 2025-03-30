@@ -9,7 +9,13 @@ import React, { useEffect, useState, useRef } from 'react';
 import useWindowSize from '@/hooks/useWindowSize';
 import useFocusTrap from '@/hooks/useFocusTrap';
 
-const MainMenuMobileRenderer = ({ children, utilities, bottomLinks, className, ...props }: MainMenuMobileProps) => {
+const MainMenuMobileRendererType1 = ({
+  utilities,
+  bottomLinks,
+  serviceMenus,
+  className,
+  ...props
+}: Omit<MainMenuMobileProps, 'children'>) => {
   const mobileNavRef = useRef<HTMLDivElement>(null);
   const windowSize = useWindowSize();
   const [localSearchValue, setLocalSearchValue] = useState('');
@@ -44,7 +50,6 @@ const MainMenuMobileRenderer = ({ children, utilities, bottomLinks, className, .
       onTransitionEnd={handleTransitionDone}
       ref={mobileNavRef}
     >
-      {children}
       <div className="gnb-wrap">
         <div className="gnb-header">
           <div className="gnb-utils">
@@ -57,20 +62,7 @@ const MainMenuMobileRenderer = ({ children, utilities, bottomLinks, className, .
             </Button>
           </div>
 
-          <div className="gnb-service-menu">
-            <a href="#" className="link">
-              메뉴명
-            </a>
-            <a href="#" className="link">
-              메뉴명
-            </a>
-            <a href="#" className="link">
-              메뉴명
-            </a>
-            <a href="#" className="link">
-              메뉴명
-            </a>
-          </div>
+          <div className="gnb-service-menu">{serviceMenus}</div>
 
           <div className="sch-input">
             <TextInput
@@ -123,5 +115,4 @@ const MainMenuMobileRenderer = ({ children, utilities, bottomLinks, className, .
   );
 };
 
-export default React.memo(MainMenuMobileRenderer);
-export type { MainMenuMobileProps };
+export default React.memo(MainMenuMobileRendererType1);

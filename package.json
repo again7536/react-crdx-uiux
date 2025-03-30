@@ -35,9 +35,12 @@
     "typescript-eslint": "^8.21.0"
   },
   "dependencies": {
-    "krds-uiux": "^1.0.3",
-    "react": "^19.0.0",
+    "krds-uiux": "^1.0.4",
     "zustand": "^5.0.3"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "eslintConfig": {
     "extends": [

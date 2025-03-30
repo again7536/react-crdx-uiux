@@ -4,12 +4,11 @@ import { useMainMenuMobileStore } from '@/hooks/store/Discover/MainMenuMobile/us
 import { HeaderUtilityProps } from './HeaderUtility/HeaderUtility';
 import HeaderAction, { HeaderActionProps } from './HeaderAction/HeaderAction';
 import { useCallback } from 'react';
-import MainMenuMobileRenderer, {
-  MainMenuMobileProps,
-} from '@/components/Discover/MainMenuMobile/MainMenuMobileRenderer';
+import { MainMenuMobileProps } from '@/components/Discover/MainMenuMobile/MainMenuMobile';
 import { useHeaderStore } from '@/hooks/store/Identity/Header/useHeaderStore';
 import Backdrop from '@/components/Others/Backdrop/Backdrop';
 import { useMainMenuStore } from '@/hooks/store/Discover/MainMenu/useMainMenuStore';
+import MainMenuMobileRenderManager from '@/components/Discover/MainMenuMobile/MainMenuMobileRenderManager';
 
 interface HeaderProps {
   utilities?: React.ReactElement<HeaderUtilityProps | HeaderUtilityDropdownProps>[];
@@ -62,7 +61,7 @@ const Header = ({
         </div>
         {children}
       </div>
-      {mainMenuMobile && <MainMenuMobileRenderer {...mainMenuMobile} />}
+      {mainMenuMobile && <MainMenuMobileRenderManager {...mainMenuMobile} />}
       <Backdrop isOpen={!!openedMainMenuId} onClick={handleBackdropClick} />
     </header>
   );
