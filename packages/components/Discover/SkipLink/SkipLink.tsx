@@ -1,12 +1,11 @@
-interface SkipLinkProps {
+interface SkipLinkProps extends React.HTMLAttributes<HTMLDivElement> {
   href?: string;
   children: React.ReactNode;
-  className?: string;
 }
 
-const SkipLink = ({ children, className, href = '#breadcrumb' }: SkipLinkProps) => {
+const SkipLink = ({ children, href = '#breadcrumb', ...props }: SkipLinkProps) => {
   return (
-    <div id="krds-skip-link" className={className}>
+    <div id="krds-skip-link" {...props}>
       <a href={href}>{children}</a>
     </div>
   );

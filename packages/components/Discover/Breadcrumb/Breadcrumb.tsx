@@ -1,4 +1,6 @@
-interface BreadcrumbProps {
+import classNames from 'classnames';
+
+interface BreadcrumbProps extends React.HTMLAttributes<HTMLElement> {
   paths: {
     label: string;
     href: string;
@@ -6,9 +8,14 @@ interface BreadcrumbProps {
   }[];
 }
 
-function Breadcrumb({ paths }: BreadcrumbProps) {
+function Breadcrumb({ paths, ...props }: BreadcrumbProps) {
   return (
-    <nav className="krds-breadcrumb-wrap" aria-label="현재 경로" id="breadcrumb">
+    <nav
+      {...props}
+      className={classNames('krds-breadcrumb-wrap', props.className)}
+      aria-label="현재 경로"
+      id="breadcrumb"
+    >
       <ol className="breadcrumb">
         {paths.map((path) => {
           return (
