@@ -8,14 +8,18 @@ import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import useFocusTrap from '@/hooks/useFocusTrap';
 import useWindowSize from '@/hooks/useWindowSize';
 import TextInput from '@/components/Input/TextInput/TextInput';
+import classNames from 'classnames';
+import MainMenuItemMobileRenderer from './MainMenuItemMobile/MainMenuItemMobileRenderer';
 
 const MainMenuMobileRendererType2 = ({
   utilities,
   bottomLinks,
   className,
+  menuLinks,
   ...props
-}: Omit<MainMenuMobileProps, 'children'>) => {
-  const { subMenuGroups, isOpen, handleClose, handleTransitionDone, setSearchValue } = useMainMenuMobileStore();
+}: Omit<MainMenuMobileProps, 'children' | 'serviceMenus'>) => {
+  const { mainMenuItems, subMenuGroups, isOpen, handleClose, handleTransitionDone, setSearchValue } =
+    useMainMenuMobileStore();
   const menuWrapObserverRef = useRef<HTMLDivElement>(null);
   const mobileNavRef = useRef<HTMLDivElement>(null);
   const tabNavRef = useRef<HTMLDivElement>(null);
@@ -62,7 +66,7 @@ const MainMenuMobileRendererType2 = ({
     if (windowSize === 'pc') {
       handleClose();
     }
-  }, [windowSize]);
+  }, [handleClose, windowSize]);
 
   useFocusTrap(mobileNavRef.current!);
 
@@ -70,7 +74,7 @@ const MainMenuMobileRendererType2 = ({
     <nav
       {...props}
       id="mobile-nav"
-      className={`krds-main-menu-mobile ${isOpen ? 'is-open is-backdrop' : ''} ${className}`}
+      className={classNames('krds-main-menu-mobile', { 'is-open is-backdrop': isOpen }, className)}
       onClick={handleBlankClick}
       onTransitionEnd={handleTransitionDone}
       ref={mobileNavRef}
@@ -119,27 +123,25 @@ const MainMenuMobileRendererType2 = ({
 
             <div className="menu-wrap">
               <ul role="tablist">
-                {subMenuGroups.map((subMenuGroup) => {
+                {mainMenuItems.map((mainMenuItem) => (
+                  <MainMenuItemMobileRenderer key={mainMenuItem.id} {...mainMenuItem} />
+                ))}
+                {menuLinks?.map((menuLink) => {
                   return (
-                    <li key={subMenuGroup.id} role="none">
+                    <li key={menuLink.label + menuLink.href} role="none">
                       <a
-                        href={`#${subMenuGroup.id}`}
-                        className="gnb-main-trigger active"
+                        href={menuLink.href}
+                        className="gnb-main-trigger"
                         role="tab"
-                        aria-selected="true"
-                        aria-controls={subMenuGroup.id}
-                        id={`tab-${subMenuGroup.id}`}
+                        aria-selected="false"
+                        aria-controls=""
+                        id={`tab-${menuLink.href}`}
                       >
-                        {subMenuGroup.title}
+                        {menuLink.label}
                       </a>
                     </li>
                   );
                 })}
-                {/* <li role="none">
-                  <a href="#" className="gnb-main-trigger" role="tab" aria-selected="false" aria-controls="" id="tab-5">
-                    단순링크
-                  </a>
-                </li> */}
               </ul>
             </div>
           </div>

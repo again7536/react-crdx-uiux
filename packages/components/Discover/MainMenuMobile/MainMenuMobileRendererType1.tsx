@@ -15,7 +15,7 @@ const MainMenuMobileRendererType1 = ({
   serviceMenus,
   className,
   ...props
-}: Omit<MainMenuMobileProps, 'children'>) => {
+}: Omit<MainMenuMobileProps, 'children' | 'menuLinks'>) => {
   const mobileNavRef = useRef<HTMLDivElement>(null);
   const windowSize = useWindowSize();
   const [localSearchValue, setLocalSearchValue] = useState('');
@@ -37,7 +37,7 @@ const MainMenuMobileRendererType1 = ({
     if (windowSize === 'pc') {
       handleClose();
     }
-  }, [windowSize]);
+  }, [handleClose, windowSize]);
 
   useFocusTrap(mobileNavRef.current!);
 
