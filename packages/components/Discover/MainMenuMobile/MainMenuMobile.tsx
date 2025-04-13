@@ -13,6 +13,7 @@ interface MainMenuMobileProps extends React.HTMLAttributes<HTMLDivElement> {
   utilities?: React.ReactElement<HeaderUtilityProps>[];
   bottomLinks?: React.ReactElement<LinkProps>[];
   serviceMenus?: React.ReactElement<ServiceMenuMobileProps>[];
+  menuLinks?: React.ReactElement<LinkProps>[];
   type?: 'type1' | 'type2';
 }
 
@@ -21,16 +22,20 @@ const MainMenuMobile = ({
   utilities,
   bottomLinks,
   serviceMenus,
+  menuLinks,
   type = 'type1',
   ...props
 }: MainMenuMobileProps) => {
   const { addMainMenuMobile, removeMainMenuMobile } = useHeaderStore();
+
+  
 
   useEffect(() => {
     addMainMenuMobile({
       utilities,
       bottomLinks,
       serviceMenus,
+      menuLinks,
       type,
       ...props,
     });
@@ -38,7 +43,7 @@ const MainMenuMobile = ({
     return () => {
       removeMainMenuMobile();
     };
-  }, [utilities, bottomLinks, serviceMenus, addMainMenuMobile, JSON.stringify(props)]);
+  }, [utilities, bottomLinks, serviceMenus, menuLinks, addMainMenuMobile, JSON.stringify(props)]);
 
   return children;
 };

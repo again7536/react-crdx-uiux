@@ -12,7 +12,7 @@ const SubMenuExternalLinkItem = ({ id, link, title }: SubMenuExternalLinkItemPro
 
   return (
     <li id={id}>
-      <a href={link} className="gnb-sub-trigger is-link external-link" data-trigger="gnb" target="_blank" title={title}>
+      <a href={link} className="gnb-sub-trigger is-link external-link" data-trigger="gnb" target="_blank" title={title} rel="noreferrer">
         {title}
       </a>
     </li>

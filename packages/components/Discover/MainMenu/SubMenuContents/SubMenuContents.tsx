@@ -23,7 +23,7 @@ const SubMenuContents = ({ title, description, link }: SubMenuContentsProps) => 
         <>
           <h3 className="tit">
             {link && (
-              <a href={link} target="_blank" title="새 창 열림">
+              <a href={link} target="_blank" title="새 창 열림" rel="noreferrer">
                 {title} <Icon name="go" />
               </a>
             )}
